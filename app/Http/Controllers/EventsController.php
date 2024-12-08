@@ -25,7 +25,11 @@ class EventsController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Event/Create');
+        $events = Events::all();
+
+        return Inertia::render('Event/Create',  [
+            'events' => $events,
+        ]);
     }
 
     /**
@@ -42,6 +46,7 @@ class EventsController extends Controller
             'short_tips' => 'required|string',
             'photo' => 'required|image|mimes:jpg,jpeg,png|max:2048',
         ]);
+        dd($request);
 
         // Handle file upload
         if ($request->hasFile('photo')) {
@@ -50,10 +55,10 @@ class EventsController extends Controller
         }
 
         // Store the data in the database
-        Events::create($validatedData);
+        Events::create($request->all());
 
         // Return success response
-        return response()->json(['message' => 'Event created successfully!'], 201);
+        return redirect()->route('event.index')->with('success', 'Segment created successfully.');
     }
 
 
@@ -70,8 +75,10 @@ class EventsController extends Controller
      */
     public function edit(Events $events)
     {
+        $events = Events::all();
+
         return Inertia::render('Event/Edit', [
-            'event' => $events,
+            'events' => $events,
         ]);
     }
 

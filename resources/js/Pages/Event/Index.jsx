@@ -71,7 +71,6 @@ export default function Index({ events }) {
                                                         href={route('event.destroy', event.id)}
                                                         method="delete"
                                                         className="inline-block mr-2"
-                                                        as="button"
                                                     >
                                                         <span className="bg-red-600 hover:bg-red-700 px-4 py-2 rounded text-white focus:outline-none">
                                                             Delete

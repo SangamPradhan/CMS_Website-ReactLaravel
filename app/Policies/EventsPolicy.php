@@ -29,7 +29,8 @@ class EventsPolicy
      */
     public function create(User $user): bool
     {
-        return false;
+        //return $user->isAdmin();
+        return $user->can('create-event');
     }
 
     /**
