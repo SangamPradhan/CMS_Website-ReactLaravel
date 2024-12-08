@@ -27,3 +27,43 @@ html {
         font-family: 'Source Sans Pro', sans-serif;
     }
 }
+
+:root {
+    color: #242424;
+    --primary-bg-color: #e8ebff;
+    --primary-color: #50BCF1;
+    --bg-color: #e8ebff;
+    --light-bg-color: #ffffff;
+    --primary-font-color: #50BCF1;
+    --light-font-color: #ffffff;
+    --hover-font-color: #ffffff;
+    --hover-bg-color: #DDF5FF;
+    --hover-bg-color-light: #e0e4ff;
+    --table-heading-bg-color: #e8ebff;
+    --light-hover-bg-color: #dfdada7b;
+    --menu-icon-color: #dba82d;
+    --dashboard-bg-color: #e7eafc;
+    --border-color: #afabab38;
+    --color-danger: #fa8541;
+    --heading-color: #131339;
+    --icon-hover-bg: #807d7d1f;
+    --icon-bg: #807d7de8;
+    --gray-font-color: #404143eb;
+    --light-blue-bg-color: hsl(225deg 33.33% 97.65%);
+    --sidedrawer-bg-color: #f4f5fb;
+    --sidedrawer-hover-bg-color: #f4f5fbbe;
+    --placeholder-font-color: #7d7a9e;
+    --item-hover-bg-color: #f4f5fb;
+    --unpaid-color: #fa5f54;
+    --btn-primary: #50BCF1;
+    --btn-primary-hovor: #31b0ef;
+
+    --nav-bar-height: 80px;
+    --header-bg-color: #50BCF1;
+    --box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    --main-page-background-color: #fafcfb80;
+    --text-color: #000000;
+    --input-border: #e8e8f7;
+    --modal-bg-color: #000000d6;
+}
+

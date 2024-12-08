@@ -36,6 +36,7 @@ const Navbar = () => {
                                 <Link
                                     href="aboutus"
                                     className="hover:border-primary py-2 hover:border-b-2 font-medium text-lg hover:text-primary transition-colors duration-500"
+                                    active={route().current('aboutus')}
                                 >
                                     About
                                 </Link>
@@ -45,6 +46,7 @@ const Navbar = () => {
                                 <Link
                                     href="/project"
                                     className="hover:border-primary py-2 hover:border-b-2 font-medium text-lg hover:text-primary transition-colors duration-500"
+                                    active={route().current('project')}
                                 >
                                     Projects
                                 </Link>
@@ -54,6 +56,7 @@ const Navbar = () => {
                             <Link
                                 href="/event"
                                 className="hover:border-primary py-2 hover:border-b-2 font-medium text-lg hover:text-primary transition-colors duration-500"
+                                active={route().current('event')}
                                 >
                                     Events
                                 </Link>
@@ -63,6 +66,7 @@ const Navbar = () => {
                             <Link
                                 href="/gallery"
                                 className="hover:border-primary py-2 hover:border-b-2 font-medium text-lg hover:text-primary transition-colors duration-500"
+                                active={route().current('gallery')}
                                 >
                                     Gallery
                                 </Link>
@@ -70,6 +74,7 @@ const Navbar = () => {
 
                             <li>
                                 <button className="primary-btn"> <Link href="/contactpage">Contact Us</Link> </button>
+                                
                             </li>
                         </ul>
                     </nav>

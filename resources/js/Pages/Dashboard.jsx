@@ -1,7 +1,4 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Provider } from 'react-redux';
-import store from '../../../resources/js/src/store';
-import App from '../../js/src/App';
 
 
 export default function Dashboard() {
@@ -14,9 +11,7 @@ export default function Dashboard() {
             }
         >
             <div>
-                <Provider store={store}>
-                    <App />
-                </Provider>
+                
 
             </div>
         </AuthenticatedLayout>

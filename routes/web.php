@@ -1,7 +1,10 @@
 <?php
 
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\EventsController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProjectController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -38,7 +41,17 @@ Route::get('/gallery', [HomeController::class, 'gallery']);
 Route::get('/event', [HomeController::class, 'event']);
 Route::get('/project', [HomeController::class, 'project']);
 
+// Segment management routes
+Route::middleware('auth')->group(function () {
+    Route::resource('event', EventsController::class);
+    Route::get('/admin/addproject', [AdminController::class, 'addproject'])->name('admin.addproject');
+    Route::get('/admin/addevent', [AdminController::class, 'addevent'])->name('admin.addevent');
+    Route::get('/admin/addblogs', [AdminController::class, 'blogs'])->name('admin.addblogs');
+    Route::get('/admin/addgallery', [AdminController::class, 'addgallery'])->name('admin.addgallery');
 
+    // New route to handle storing projects
+    Route::post('/admin/projects', [ProjectController::class, 'store'])->name('admin.projects.store');
+});
 
 
 
