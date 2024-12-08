@@ -25,61 +25,62 @@ export default function Index({ events }) {
                                 </Link>
                             </div>
 
-                            <table className="mt-4 min-w-full">
-                                <thead>
-                                    <tr>
-                                        <th className="px-4 py-2">ID</th>
-                                        <th className="px-4 py-2">Title</th>
-                                        <th className="px-4 py-2">Short Description</th>
-                                        <th className="px-4 py-2">Long Description</th>
-                                        <th className="px-4 py-2">Date</th>
-                                        <th className="px-4 py-2">Hastags</th>
-                                        <th className="px-4 py-2">Short tips</th>
-                                        <th className="px-4 py-2">Photo</th>
-                                        <th className="px-4 py-2">Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {events.map(event => (
-                                        <tr key={event.id}>
-                                            <td className="px-4 py-2 border">{event.id}</td>
-                                            <td className="px-4 py-2 border">{event.title}</td>
-                                            <td className="px-4 py-2 border">{event.short_description}</td>
-                                            <td className="px-4 py-2 border">{event.long_description}</td>
-                                            <td className="px-4 py-2 border">{event.date}</td>
-                                            <td className="px-4 py-2 border">{event.hashtags}</td>
-                                            <td className="px-4 py-2 border">{event.short_tips}</td>
-                                            <td className="px-4 py-2 border">{event.photo}</td>
-                                            <td className="px-4 py-2 border">
-                                                <div className="flex space-x-2">
-                                                    <Link href={route('event.edit', event.id)} className="mr-2">
-                                                        <button className="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded text-white focus:outline-none">
-                                                            Edit
-                                                        </button>
-                                                    </Link>
-
-                                                    <Link href={route('event.show', event.id)} className="mr-2">
-                                                        <button className="bg-green-600 hover:bg-green-700 px-4 py-2 rounded text-white focus:outline-none">
-                                                            View
-                                                        </button>
-                                                    </Link>
-
-                                                    <Link
-                                                        href={route('event.destroy', event.id)}
-                                                        method="delete"
-                                                        className="inline-block mr-2"
-                                                    >
-                                                        <span className="bg-red-600 hover:bg-red-700 px-4 py-2 rounded text-white focus:outline-none">
-                                                            Delete
-                                                        </span>
-                                                    </Link>
-                                                </div>
-                                            </td>
-
+                            <div className="overflow-x-auto">
+                                <table className="mt-4 min-w-full">
+                                    <thead>
+                                        <tr>
+                                            <th className="px-4 py-2">ID</th>
+                                            <th className="px-4 py-2">Title</th>
+                                            <th className="px-4 py-2">Short Description</th>
+                                            <th className="px-4 py-2">Long Description</th>
+                                            <th className="px-4 py-2">Date</th>
+                                            <th className="px-4 py-2">Hashtags</th>
+                                            <th className="px-4 py-2">Short Tips</th>
+                                            <th className="px-4 py-2">Photo</th>
+                                            <th className="px-4 py-2">Actions</th>
                                         </tr>
-                                    ))}
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                        {events.map(event => (
+                                            <tr key={event.id}>
+                                                <td className="px-4 py-2 border">{event.id}</td>
+                                                <td className="px-4 py-2 border">{event.title}</td>
+                                                <td className="px-4 py-2 border">{event.short_description}</td>
+                                                <td className="px-4 py-2 border">{event.long_description}</td>
+                                                <td className="px-4 py-2 border">{event.date}</td>
+                                                <td className="px-4 py-2 border">{event.hashtags}</td>
+                                                <td className="px-4 py-2 border">{event.short_tips}</td>
+                                                <td className="px-4 py-2 border">{event.photo}</td>
+                                                <td className="px-4 py-2 border">
+                                                    <div className="flex space-x-2">
+                                                        <Link href={route('event.edit', event.id)} className="mr-2">
+                                                            <button className="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded text-white focus:outline-none">
+                                                                Edit
+                                                            </button>
+                                                        </Link>
+
+                                                        <Link href={route('event.show', event.id)} className="mr-2">
+                                                            <button className="bg-green-600 hover:bg-green-700 px-4 py-2 rounded text-white focus:outline-none">
+                                                                View
+                                                            </button>
+                                                        </Link>
+
+                                                        <Link
+                                                            href={route('event.destroy', event.id)}
+                                                            method="delete"
+                                                            className="inline-block mr-2"
+                                                        >
+                                                            <span className="bg-red-600 hover:bg-red-700 px-4 py-2 rounded text-white focus:outline-none">
+                                                                Delete
+                                                            </span>
+                                                        </Link>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
