@@ -2,9 +2,6 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link } from '@inertiajs/react';
 
 export default function Index({ events }) {
-    if (!events || events.length === 0) {
-        return <div>No events found.</div>;
-    }
 
     return (
         <AuthenticatedLayout

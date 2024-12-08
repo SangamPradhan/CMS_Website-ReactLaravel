@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Events;
-use App\Http\Requests\StoreEventsRequest;
-use App\Http\Requests\UpdateEventsRequest;
+
+use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class EventsController extends Controller
@@ -35,7 +35,7 @@ class EventsController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreEventsRequest $request)
+    public function store(Request $request)
     {
         $validatedData = $request->validate([
             'title' => 'required|string|max:255',
@@ -44,9 +44,8 @@ class EventsController extends Controller
             'date' => 'required|date',
             'hashtags' => 'required|string',
             'short_tips' => 'required|string',
-            'photo' => 'required|image|mimes:jpg,jpeg,png|max:2048',
+            'photo' => 'required',
         ]);
-        dd($request);
 
         // Handle file upload
         if ($request->hasFile('photo')) {
@@ -85,7 +84,7 @@ class EventsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateEventsRequest $request, Events $events)
+    public function update(Request $request, Events $events)
     {
         // Validate incoming request data
         $request->validate([
@@ -95,7 +94,7 @@ class EventsController extends Controller
             'date' => 'required|date',
             'hashtags' => 'nullable|string|max:255',
             'short_tips' => 'nullable|string|max:255',
-            'photo' => 'nullable|image|max:2048', // Optional image validation
+            'photo' => 'required',
         ]);
 
         // Update the event data

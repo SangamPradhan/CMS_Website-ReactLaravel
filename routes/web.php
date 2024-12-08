@@ -43,7 +43,7 @@ Route::get('/project', [HomeController::class, 'project']);
 
 // Segment management routes
 Route::middleware('auth')->group(function () {
-    Route::resource('event', EventsController::class)->middleware(['auth']);
+    Route::resource('event', EventsController::class);
     Route::get('/admin/addproject', [AdminController::class, 'addproject'])->name('admin.addproject');
     Route::get('/admin/addevent', [AdminController::class, 'addevent'])->name('admin.addevent');
     Route::get('/admin/addblogs', [AdminController::class, 'blogs'])->name('admin.addblogs');
