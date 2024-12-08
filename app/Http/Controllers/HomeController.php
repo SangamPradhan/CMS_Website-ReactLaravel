@@ -19,8 +19,8 @@ class HomeController extends Controller
         return Inertia::render('Gallery');
     }
 
-    public function event(){
-        return Inertia::render('Events');
+    public function homeevent(){
+        return Inertia::render('HomeEvents');
     }
 
     public function project(){

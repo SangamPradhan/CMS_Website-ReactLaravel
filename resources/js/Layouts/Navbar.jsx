@@ -54,9 +54,9 @@ const Navbar = () => {
 
                             <li>
                             <Link
-                                href="/event"
+                                href="/homeevent"
                                 className="hover:border-primary py-2 hover:border-b-2 font-medium text-lg hover:text-primary transition-colors duration-500"
-                                active={route().current('event')}
+                                active={route().current('homeevent')}
                                 >
                                     Events
                                 </Link>

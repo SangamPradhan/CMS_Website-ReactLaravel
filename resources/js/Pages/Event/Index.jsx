@@ -70,7 +70,7 @@ export default function Index({ events }) {
                                                             method="delete"
                                                             className="inline-block mr-2"
                                                         >
-                                                            <span className="bg-red-600 hover:bg-red-700 px-4 py-2 rounded text-white focus:outline-none">
+                                                            <span className="bg-red-600 hover:bg-red-700 px-4 py-2 rounded text-white className= focus:outline-none">
                                                                 Delete
                                                             </span>
                                                         </Link>
