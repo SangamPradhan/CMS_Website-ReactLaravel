@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\BlogsController;
 use App\Http\Controllers\EventsController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
@@ -45,6 +46,8 @@ Route::get('/project', [HomeController::class, 'project']);
 Route::middleware('auth')->group(function () {
     Route::resource('event', EventsController::class);
     Route::resource('projects', ProjectController::class);
+    Route::resource('blogs', BlogsController::class);
+
     Route::get('/admin/addproject', [AdminController::class, 'addproject'])->name('admin.addproject');
     Route::get('/admin/addevent', [AdminController::class, 'addevent'])->name('admin.addevent');
     Route::get('/admin/addblogs', [AdminController::class, 'blogs'])->name('admin.addblogs');

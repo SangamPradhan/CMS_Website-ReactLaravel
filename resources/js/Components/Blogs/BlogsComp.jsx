@@ -1,4 +1,3 @@
-import React from "react";
 import Img1 from '../../../assets/blog/blog1.png';
 import BlogCard from "./BlogCard";
 
@@ -36,12 +35,12 @@ const BlogsData = [
 const BlogsComp = () => {
     return (
         <>
-            <div className="bg-gray-100 dark:bg-gray-900 dark:text-white py-10 pb-14">
-                <section data-aos="fade-up" className="container ml-10">
-                    <h1 className="my-8 border-l-8 border-primary/50 py-2 pl-2 text-3xl font-semibold">
+            <div className="bg-gray-100 dark:bg-gray-900 py-10 pb-14 dark:text-white">
+                <section data-aos="fade-up" className="ml-10 container">
+                    <h1 className="border-primary/50 my-8 py-2 pl-2 border-l-8 font-semibold text-3xl">
                         Our Blogs
                     </h1>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div className="gap-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
                         {BlogsData.map((item) => (
                             <BlogCard key={item.id} {...item} />
                         ))}
