@@ -1,14 +1,14 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link, useForm } from '@inertiajs/react';
 
-export default function EditEvent({ events }) {
+export default function EditEvent({ event }) {
     const { data, setData, put, errors } = useForm({
-        title: events.title,
-        short_description: events.short_description,
-        long_description: events.long_description,
-        date: events.date,
-        hashtags: events.hashtags,
-        short_tips: events.short_tips,
+        title: event.title,
+        short_description: event.short_description,
+        long_description: event.long_description,
+        date: event.date,
+        hashtags: event.hashtags,
+        short_tips: event.short_tips,
         photo: null,
     });
 
@@ -26,7 +26,7 @@ export default function EditEvent({ events }) {
     // Handle form submission
     const handleSubmit = (e) => {
         e.preventDefault();
-        put(route('event.update', events.id));  // Send the PUT request to update the event
+        put(route('event.update', event.id));  // Send the PUT request to update the event
     };
 
     return (

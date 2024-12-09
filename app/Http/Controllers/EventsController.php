@@ -57,14 +57,14 @@ class EventsController extends Controller
         Events::create($request->all());
 
         // Return success response
-        return redirect()->route('event.index')->with('success', 'Segment created successfully.');
+        return redirect()->route('event.index')->with('success', 'Event created successfully.');
     }
 
 
     /**
      * Display the specified resource.
      */
-    public function show(Events $events)
+    public function show(Events $event)
     {
         //
     }
@@ -72,19 +72,19 @@ class EventsController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Events $events)
+    public function edit(Events $event)
     {
-        $events = Events::all();
+        // $event = Events::all();
 
         return Inertia::render('Event/Edit', [
-            'events' => $events,
+            'event' => $event,
         ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Events $events)
+    public function update(Request $request, Events $event)
     {
         // Validate incoming request data
         $request->validate([
@@ -98,7 +98,7 @@ class EventsController extends Controller
         ]);
 
         // Update the event data
-        $events->update([
+        $event->update([
             'title' => $request->title,
             'short_description' => $request->short_description,
             'long_description' => $request->long_description,
@@ -110,7 +110,7 @@ class EventsController extends Controller
         // Handle photo upload if provided
         if ($request->hasFile('photo')) {
             $path = $request->file('photo')->store('events', 'public');
-            $events->update(['photo' => $path]); // Save the photo path
+            $event->update(['photo' => $path]); // Save the photo path
         }
 
         // Redirect back to the event listing with a success message
@@ -120,10 +120,9 @@ class EventsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Events $events)
+    public function destroy(Events $event)
     {
-        $events->delete();
-
+        $event->delete();
         return redirect()->route('event.index')->with('success', 'Event deleted successfully.');
     }
 }

@@ -34,10 +34,10 @@ export default function AuthenticatedLayout({ header, children }) {
 
                             <div className="sm:flex space-x-8 hidden sm:-my-px sm:ms-10">
                                 <NavLink
-                                    href={route('admin.addproject')}
-                                    active={route().current('admin.addproject')}
+                                    href={route('projects.index')}
+                                    active={route().current('projects.index')}
                                 >
-                                    Add Project
+                                    Add Projects
                                 </NavLink>
                             </div>
 
