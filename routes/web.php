@@ -3,9 +3,11 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BlogsController;
 use App\Http\Controllers\EventsController;
+use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\TestimonialsController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -47,6 +49,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('event', EventsController::class);
     Route::resource('projects', ProjectController::class);
     Route::resource('blogs', BlogsController::class);
+    Route::resource('testimonials', TestimonialsController::class);
+    Route::resource('gallery', GalleryController::class);
 
     Route::get('/admin/addproject', [AdminController::class, 'addproject'])->name('admin.addproject');
     Route::get('/admin/addevent', [AdminController::class, 'addevent'])->name('admin.addevent');

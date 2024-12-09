@@ -37,7 +37,7 @@ export default function AuthenticatedLayout({ header, children }) {
                                     href={route('projects.index')}
                                     active={route().current('projects.index')}
                                 >
-                                    Add Projects
+                                    Projects
                                 </NavLink>
                             </div>
 
@@ -62,8 +62,8 @@ export default function AuthenticatedLayout({ header, children }) {
 
                             <div className="sm:flex space-x-8 hidden sm:-my-px sm:ms-10">
                                 <NavLink
-                                    href={route('dashboard')}
-                                    active={route().current('admin.addproject')}
+                                    href={route('testimonials.index')}
+                                    active={route().current('testimonials.index')}
                                 >
                                     Testimonials
                                 </NavLink>
@@ -72,9 +72,16 @@ export default function AuthenticatedLayout({ header, children }) {
                             <div className="sm:flex space-x-8 hidden sm:-my-px sm:ms-10">
                                 <NavLink
                                     href={route('admin.addgallery')}
-                                    
                                 >
                                     Gallery
+                                </NavLink>
+                            </div>
+
+                            <div className="sm:flex space-x-8 hidden sm:-my-px sm:ms-10">
+                                <NavLink
+                                    href={route('gallery.index')}
+                                >
+                                    Gallery2
                                 </NavLink>
                             </div>
                         </div>
