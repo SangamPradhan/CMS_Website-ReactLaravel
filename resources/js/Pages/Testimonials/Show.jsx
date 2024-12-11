@@ -51,7 +51,7 @@ const Testimonial = () => {
                     Blog Details
                 </h2>
                 <Link
-                    href={route('blogs.index')}
+                    href={route('testimonials.index')}
                     className="bg-blue-600 hover:bg-gray-700 px-4 py-2 rounded-md text-white focus:outline-none"
                 >
                     Back

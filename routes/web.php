@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BlogsController;
 use App\Http\Controllers\EventsController;
+use App\Http\Controllers\GalleriesController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
@@ -40,7 +41,7 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/contactpage', [HomeController::class, 'contactpage']);
 Route::get('/aboutus', [HomeController::class, 'aboutus']);
-Route::get('/gallery', [HomeController::class, 'gallery']);
+Route::get('/homegallery', [HomeController::class, 'homegallery']);
 Route::get('/homeevent', [HomeController::class, 'homeevent']);
 Route::get('/project', [HomeController::class, 'project']);
 
@@ -50,15 +51,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('projects', ProjectController::class);
     Route::resource('blogs', BlogsController::class);
     Route::resource('testimonials', TestimonialsController::class);
-    Route::resource('gallery', GalleryController::class);
+    Route::resource('gallery', GalleriesController::class);
 
-    Route::get('/admin/addproject', [AdminController::class, 'addproject'])->name('admin.addproject');
-    Route::get('/admin/addevent', [AdminController::class, 'addevent'])->name('admin.addevent');
-    Route::get('/admin/addblogs', [AdminController::class, 'blogs'])->name('admin.addblogs');
-    Route::get('/admin/addgallery', [AdminController::class, 'addgallery'])->name('admin.addgallery');
-
-    // New route to handle storing projects
-    Route::post('/admin/projects', [ProjectController::class, 'store'])->name('admin.projects.store');
 });
 
 

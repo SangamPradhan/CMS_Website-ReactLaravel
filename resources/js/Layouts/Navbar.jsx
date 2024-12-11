@@ -64,9 +64,9 @@ const Navbar = () => {
 
                             <li>
                             <Link
-                                href="/gallery"
+                                href="/homegallery"
                                 className="hover:border-primary py-2 hover:border-b-2 font-medium text-lg hover:text-primary transition-colors duration-500"
-                                active={route().current('gallery')}
+                                active={route().current('homegallery')}
                                 >
                                     Gallery
                                 </Link>

@@ -71,22 +71,13 @@ export default function AuthenticatedLayout({ header, children }) {
 
                             <div className="sm:flex space-x-8 hidden sm:-my-px sm:ms-10">
                                 <NavLink
-                                    href={route('admin.addgallery')}
+                                    href={route('gallery.index')}
                                 >
                                     Gallery
                                 </NavLink>
                             </div>
-
-                            <div className="sm:flex space-x-8 hidden sm:-my-px sm:ms-10">
-                                <NavLink
-                                    href={route('gallery.index')}
-                                >
-                                    Gallery2
-                                </NavLink>
-                            </div>
                         </div>
                         
-
                         <div className="sm:flex sm:items-center hidden sm:ms-6">
                             <div className="relative ms-3">
                                 <Dropdown>

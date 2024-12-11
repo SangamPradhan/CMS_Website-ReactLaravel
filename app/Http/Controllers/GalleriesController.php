@@ -2,20 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Gallery;
+use App\Models\Galleries;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
-class GalleryController extends Controller
+class GalleriesController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $gallerys = Gallery::all();
+        $galleries = Galleries::all();
         return Inertia::render('Gallery/Index', [
-            'testimonials' => $gallerys,
+            'galleries' => $galleries,
         ]);
     }
 
@@ -24,9 +24,9 @@ class GalleryController extends Controller
      */
     public function create()
     {
-        $gallery = Gallery::all();
+        $galleries = Galleries::all();
         return Inertia::render('Gallery/Create',  [
-            'gallery' => $gallery,
+            'galleries' => $galleries,
         ]);
     }
 
@@ -37,28 +37,28 @@ class GalleryController extends Controller
     {
         $validatedData = $request->validate([
             'title' => 'required|string|max:255',
-            'description' => 'required|string',
-            'rating' => 'required|string|max:255',
             'date' => 'required|date',
-            'photo' => 'required',
+            'photo' => 'nullable|file|mimes:jpeg,png,jpg,gif|max:2048',
+            'video' => 'nullable|string|max:255',
+
         ]);
 
         // Handle file upload
         if ($request->hasFile('photo')) {
-            $photoPath = $request->file('photo')->store('testimonials', 'public');
+            $photoPath = $request->file('photo')->store('galleries', 'public');
             $validatedData['photo'] = $photoPath;
         }
 
         // Store the data in the database
-        Gallery::create($request->all());
+        Galleries::create($request->all());
         // Return a response, such as redirecting the user back to the projects listing page
-        return redirect()->route('gallery.index')->with('success', 'Testimonial created successfully.');
+        return redirect()->route('gallery.index')->with('success', 'Gallery created successfully.');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Gallery $gallery)
+    public function show(Galleries $gallery)
     {
         return Inertia::render('Gallery/Show', [
             'gallery' => $gallery,
@@ -68,7 +68,7 @@ class GalleryController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Gallery $gallery)
+    public function edit(Galleries $gallery)
     {
         return Inertia::render('Gallery/Edit', [
             'gallery' => $gallery,
@@ -78,7 +78,7 @@ class GalleryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Gallery $gallery)
+    public function update(Request $request, Galleries $gallery)
     {
         //
     }
@@ -86,7 +86,7 @@ class GalleryController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Gallery $gallery)
+    public function destroy(Galleries $gallery)
     {
         $gallery->delete();
         return redirect()->route('gallery.index')->with('success', 'Gallery deleted successfully.');
