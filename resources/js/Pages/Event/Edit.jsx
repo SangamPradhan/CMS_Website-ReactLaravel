@@ -35,11 +35,6 @@ export default function EditEvent({ event }) {
                 <div className="flex justify-between items-center">
                     {/* Left-aligned Title */}
                     <h2 className="font-semibold text-gray-800 text-xl leading-tight">Edit This Event</h2>
-
-                    {/* Right-aligned Cancel Button */}
-                    <Link href={route('event.index')} className="bg-red-600 hover:bg-gray-700 px-4 py-2 rounded-md text-white focus:outline-none">
-                        Cancel
-                    </Link>
                 </div>
             }
 
@@ -48,7 +43,20 @@ export default function EditEvent({ event }) {
 
             <div className="flex justify-center items-center pt-5 md:pt-5 lg:pt-5">
                 <div className="bg-white shadow-md p-10 rounded-lg w-full max-w-3xl">
+
                     <h2 className="mb-10 font-bold text-2xl text-blue-500">Update Event Information</h2>
+                    <div className="flex justify-between items-center mb-10">
+                        <h2 className="font-bold text-2xl text-blue-500">
+                            Update Event Data
+                        </h2>
+                        <Link
+                            href={route('events.index')}
+                            className="bg-red-600 hover:bg-gray-700 px-4 py-2 rounded-md text-white focus:outline-none"
+                        >
+                            Cancel
+                        </Link>
+                    </div>
+
                     <form onSubmit={handleSubmit}>
                         <div className="mb-7">
                             <label htmlFor="title" className="block mb-1 font-medium text-gray-700 text-sm">Title</label>

@@ -6,7 +6,7 @@ const ConfirmationDialog = ({ isOpen, onClose, onConfirm }) => {
     return (
         <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50">
             <div className="bg-white shadow-lg p-6 rounded-lg">
-                <h2 className="mb-4 font-semibold text-xl">Are you sure you want to delete this template?</h2>
+                <h2 className="mb-4 font-semibold text-xl">Are you sure you want to delete this?</h2>
                 <div className="flex justify-end">
                     <button
                         onClick={onClose}

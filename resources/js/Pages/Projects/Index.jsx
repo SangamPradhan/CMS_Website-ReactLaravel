@@ -1,7 +1,29 @@
+import ConfirmationDialog from '@/Components/ConfirmationDialog';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head, Link } from '@inertiajs/react';
+import {
+    faEye,
+    faPencilAlt,
+    faTrashAlt
+} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Head, Link, useForm } from '@inertiajs/react';
+import { useState } from 'react';
 
 export default function Index({ projects }) {
+
+    const [isDialogOpen, setIsDialogOpen] = useState(false)
+    const [deleteUrl, setDeleteUrl] = useState('')
+    const { delete: destroy } = useForm()
+
+    const handleDeleteClick = url => {
+        setDeleteUrl(url)
+        setIsDialogOpen(true)
+    }
+
+    const handleConfirmDelete = () => {
+        setIsDialogOpen(false)
+        destroy(deleteUrl)
+    }
 
     return (
         <AuthenticatedLayout
@@ -48,28 +70,52 @@ export default function Index({ projects }) {
                                                 <td className="px-4 py-2 border">{project.date}</td>
                                                 <td className="px-4 py-2 border">{project.image}</td>
                                                 <td className="px-4 py-2 border">
-                                                    <div className="flex space-x-2">
-                                                        <Link href={route('projects.edit', project.id)} className="mr-2">
-                                                            <button className="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded text-white focus:outline-none">
-                                                                Edit
-                                                            </button>
-                                                        </Link>
-
-                                                        <Link href={route('projects.show', project.id)} className="mr-2">
-                                                            <button className="bg-green-600 hover:bg-green-700 px-4 py-2 rounded text-white focus:outline-none">
-                                                                View
-                                                            </button>
+                                                    <div className="flex space-x-2 px-4 py-2">
+                                                        <Link
+                                                            href={route(
+                                                                'projects.edit',
+                                                                project.id
+                                                            )}
+                                                            className='bg-blue-100 hover:bg-blue-200 mr-2 px-4 py-2 rounded text-blue-600'
+                                                        >
+                                                            <FontAwesomeIcon
+                                                                icon={faPencilAlt}
+                                                                className='mr-2'
+                                                            />
+                                                            Edit
                                                         </Link>
 
                                                         <Link
-                                                            href={route('projects.destroy', project.id)}
-                                                            method="delete"
-                                                            className="inline-block mr-2"
+                                                            href={route(
+                                                                'projects.show',
+                                                                project.id
+                                                            )}
+                                                            className='bg-green-100 hover:bg-green-200 mr-2 px-4 py-2 rounded text-green-600'
                                                         >
-                                                            <button className="bg-red-600 hover:bg-red-700 px-4 py-2 rounded text-white className= focus:outline-none">
-                                                                Delete
-                                                            </button>
+                                                            <FontAwesomeIcon
+                                                                icon={faEye}
+                                                                className='mr-2'
+                                                            />
+                                                            Preview
                                                         </Link>
+
+                                                        <button
+                                                            onClick={() =>
+                                                                handleDeleteClick(
+                                                                    route(
+                                                                        'projects.destroy',
+                                                                        project.id
+                                                                    )
+                                                                )
+                                                            }
+                                                            className='bg-red-100 hover:bg-red-200 px-4 py-2 rounded text-red-600'
+                                                        >
+                                                            <FontAwesomeIcon
+                                                                icon={faTrashAlt}
+                                                                className='mr-2'
+                                                            />
+                                                            Delete
+                                                        </button>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -81,6 +127,11 @@ export default function Index({ projects }) {
                     </div>
                 </div>
             </div>
+            <ConfirmationDialog
+                isOpen={isDialogOpen}
+                onClose={() => setIsDialogOpen(false)}
+                onConfirm={handleConfirmDelete}
+            />
         </AuthenticatedLayout>
     );
 }

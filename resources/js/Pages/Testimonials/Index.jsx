@@ -1,4 +1,10 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
+import {
+    faEye,
+    faPencilAlt,
+    faTrashAlt
+} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Head, Link } from '@inertiajs/react';
 
 export default function Index({ testimonials }) {
@@ -51,12 +57,20 @@ export default function Index({ testimonials }) {
                                                     <div className="flex space-x-2">
                                                         <Link href={route('testimonials.edit', testimonial.id)} className="mr-2">
                                                             <button className="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded text-white focus:outline-none">
+                                                                <FontAwesomeIcon
+                                                                    icon={faPencilAlt}
+                                                                    className='mr-2'
+                                                                />
                                                                 Edit
                                                             </button>
                                                         </Link>
 
                                                         <Link href={route('testimonials.show', testimonial.id)} className="mr-2">
                                                             <button className="bg-green-600 hover:bg-green-700 px-4 py-2 rounded text-white focus:outline-none">
+                                                                <FontAwesomeIcon
+                                                                    icon={faEye}
+                                                                    className='mr-2'
+                                                                />
                                                                 View
                                                             </button>
                                                         </Link>
@@ -67,6 +81,10 @@ export default function Index({ testimonials }) {
                                                             className="mr-2"
                                                         >
                                                             <button className="bg-red-600 hover:bg-red-700 px-4 py-2 rounded text-white className= focus:outline-none">
+                                                                <FontAwesomeIcon
+                                                                    icon={faTrashAlt}
+                                                                    className='mr-2'
+                                                                />
                                                                 Delete
                                                             </button>
                                                         </Link>

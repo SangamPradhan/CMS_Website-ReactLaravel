@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Events;
 use App\Models\Projects;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -69,7 +68,7 @@ class ProjectController extends Controller
      */
     public function edit(Projects $project)
     {
-        // $event = Events::all();
+        // $project = projects::all();
 
         return Inertia::render('Projects/Edit', [
             'project' => $project,
@@ -79,7 +78,7 @@ class ProjectController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Events $event)
+    public function update(Request $request, Projects $project)
     {
         // Validate incoming request data
         $request->validate([
@@ -92,8 +91,8 @@ class ProjectController extends Controller
             'photo' => 'required',
         ]);
 
-        // Update the event data
-        $event->update([
+        // Update the project data
+        $project->update([
             'title' => $request->title,
             'short_description' => $request->short_description,
             'long_description' => $request->long_description,
@@ -104,12 +103,12 @@ class ProjectController extends Controller
 
         // Handle photo upload if provided
         if ($request->hasFile('photo')) {
-            $path = $request->file('photo')->store('events', 'public');
-            $event->update(['photo' => $path]); // Save the photo path
+            $path = $request->file('photo')->store('projects', 'public');
+            $project->update(['photo' => $path]); // Save the photo path
         }
 
-        // Redirect back to the event listing with a success message
-        return redirect()->route('event.index')->with('success', 'Event updated successfully.');
+        // Redirect back to the project listing with a success message
+        return redirect()->route('projects.index')->with('success', 'project updated successfully.');
     }
 
     /**
@@ -118,6 +117,6 @@ class ProjectController extends Controller
     public function destroy(Projects $project)
     {
         $project->delete();
-        return redirect()->route('event.index')->with('success', 'Event deleted successfully.');
+        return redirect()->route('projectsx.index')->with('success', 'project deleted successfully.');
     }
 }
