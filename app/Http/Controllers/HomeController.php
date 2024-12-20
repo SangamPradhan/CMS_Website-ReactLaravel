@@ -23,7 +23,7 @@ class HomeController extends Controller
         return Inertia::render('HomeEvents');
     }
 
-    public function project(){
-        return Inertia::render('Projects');
+    public function homeprojects(){
+        return Inertia::render('HomeProjects');
     }
 }

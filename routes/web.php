@@ -43,7 +43,7 @@ Route::get('/contactpage', [HomeController::class, 'contactpage']);
 Route::get('/aboutus', [HomeController::class, 'aboutus']);
 Route::get('/homegallery', [HomeController::class, 'homegallery']);
 Route::get('/homeevent', [HomeController::class, 'homeevent']);
-Route::get('/project', [HomeController::class, 'project']);
+Route::get('/homeprojects', [HomeController::class, 'homeprojects']);
 
 // Segment management routes
 Route::middleware('auth')->group(function () {
