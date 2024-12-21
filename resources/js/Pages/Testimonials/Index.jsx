@@ -11,7 +11,7 @@ export default function Index({ testimonials }) {
 
     return (
         <AuthenticatedLayout
-            header={<h2 className="font-semibold text-gray-800 text-xl leading-tight">Add testimonial</h2>}
+            header={<h2 className="font-semibold text-gray-800 text-xl leading-tight">Testimonials from our Clients</h2>}
         >
             <Head title="testimonials" />
             <div className="py-12">

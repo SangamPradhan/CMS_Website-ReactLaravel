@@ -1,5 +1,5 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head, useForm } from '@inertiajs/react';
+import { Head, Link, useForm } from '@inertiajs/react';
 
 const Create = () => {
     const { data, setData, post, errors } = useForm({
@@ -20,12 +20,23 @@ const Create = () => {
             header={
                 <div className="flex justify-between items-center">
                     <h2 className="font-semibold text-gray-800 text-xl leading-tight">Add New blog</h2>
-                    
+
                 </div>
             }
         >
             <Head title="Add Blog Post" />
             <div className="bg-white shadow-md mx-auto mt-8 p-6 rounded-lg max-w-4xl">
+                <div className="flex justify-between items-center mb-10">
+                    <h2 className="font-bold text-2xl text-blue-500">
+                        Add Blog Post
+                    </h2>
+                    <Link
+                        href={route('blogs.index')}
+                        className="bg-red-600 hover:bg-gray-700 px-4 py-2 rounded-md text-white focus:outline-none"
+                    >
+                        Cancel
+                    </Link>
+                </div>
                 <form onSubmit={handleSubmit} className="space-y-6">
                     {/* Title */}
                     <div>

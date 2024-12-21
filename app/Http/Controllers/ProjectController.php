@@ -35,23 +35,25 @@ class ProjectController extends Controller
     // Store the project data
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
+        $request->validate([
             'title' => 'required|string|max:255',
             'subtitle' => 'required|string|max:255',
             'description' => 'required|string',
             'date' => 'required|date',
-            'image' => 'required',
+            'image' => 'required|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
-        // Handle file upload
-        if ($request->hasFile('image')) {
-            $photoPath = $request->file('image')->store('projects', 'public');
-            $validatedData['image'] = $photoPath;
-        }
 
-        // Store the data in the database
-        Projects::create($request->all());
-        // Return a response, such as redirecting the user back to the projects listing page
+        $filePath = $request->file('image')->store('projects', 'public');
+
+        Projects::create([
+            'title' => $request->title,
+            'image' => $filePath,
+            'subtitle' => $request->subtitle,
+            'description' => $request->description,
+            'date' => $request->date,
+        ]);
+
         return redirect()->route('projects.index')->with('success', 'Project created successfully.');
     }
 

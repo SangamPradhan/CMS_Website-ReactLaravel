@@ -32,11 +32,6 @@ export default function Editgallery({ gallery }) {
                 <div className="flex justify-between items-center">
                     {/* Left-aligned Title */}
                     <h2 className="font-semibold text-gray-800 text-xl leading-tight">Edit This gallery</h2>
-
-                    {/* Right-aligned Cancel Button */}
-                    <Link href={route('gallery.index')} className="bg-red-600 hover:bg-gray-700 px-4 py-2 rounded-md text-white focus:outline-none">
-                        Cancel
-                    </Link>
                 </div>
             }
 
@@ -45,7 +40,17 @@ export default function Editgallery({ gallery }) {
 
             <div className="flex justify-center items-center pt-5 md:pt-5 lg:pt-5">
                 <div className="bg-white shadow-md p-10 rounded-lg w-full max-w-3xl">
-                    <h2 className="mb-10 font-bold text-2xl text-blue-500">Update gallery Information</h2>
+                    <div className="flex justify-between items-center mb-10">
+                        <h2 className="font-bold text-2xl text-blue-500">
+                            Update Gallery Content
+                        </h2>
+                        <Link
+                            href={route('gallery.index')}
+                            className="bg-red-600 hover:bg-gray-700 px-4 py-2 rounded-md text-white focus:outline-none"
+                        >
+                            Cancel
+                        </Link>
+                    </div>
                     <form onSubmit={handleSubmit}>
                         <div className="mb-7">
                             <label htmlFor="title" className="block mb-1 font-medium text-gray-700 text-sm">Title</label>

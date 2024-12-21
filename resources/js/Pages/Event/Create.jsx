@@ -22,6 +22,15 @@ const Create = () => {
             header={
                 <div className="flex justify-between items-center">
                     <h2 className="font-semibold text-gray-800 text-xl leading-tight">Add New Event</h2>
+                </div>
+            }
+        >
+            <Head title="Add Event" />
+            <div className="bg-white shadow-md mx-auto mt-8 p-6 rounded-lg max-w-4xl">
+                <div className="flex justify-between items-center mb-10">
+                    <h2 className="font-bold text-2xl text-blue-500">
+                        Add Event's Information
+                    </h2>
                     <Link
                         href={route('event.index')}
                         className="bg-red-600 hover:bg-gray-700 px-4 py-2 rounded-md text-white focus:outline-none"
@@ -29,10 +38,6 @@ const Create = () => {
                         Cancel
                     </Link>
                 </div>
-            }
-        >
-            <Head title="Add Event" />
-            <div className="bg-white shadow-md mx-auto mt-8 p-6 rounded-lg max-w-4xl">
                 <form onSubmit={handleSubmit} className="space-y-6">
                     {/* Title */}
                     <div>

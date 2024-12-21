@@ -43,14 +43,12 @@ export default function EditEvent({ event }) {
 
             <div className="flex justify-center items-center pt-5 md:pt-5 lg:pt-5">
                 <div className="bg-white shadow-md p-10 rounded-lg w-full max-w-3xl">
-
-                    <h2 className="mb-10 font-bold text-2xl text-blue-500">Update Event Information</h2>
                     <div className="flex justify-between items-center mb-10">
                         <h2 className="font-bold text-2xl text-blue-500">
-                            Update Event Data
+                            Update Event Information
                         </h2>
                         <Link
-                            href={route('events.index')}
+                            href={route('event.index')}
                             className="bg-red-600 hover:bg-gray-700 px-4 py-2 rounded-md text-white focus:outline-none"
                         >
                             Cancel

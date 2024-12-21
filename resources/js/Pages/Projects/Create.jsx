@@ -20,6 +20,15 @@ const Create = () => {
             header={
                 <div className="flex justify-between items-center">
                     <h2 className="font-semibold text-gray-800 text-xl leading-tight">Add New Project</h2>
+                </div>
+            }
+        >
+            <Head title="Add Project" />
+            <div className="bg-white shadow-md mx-auto mt-8 p-6 rounded-lg max-w-4xl">
+                <div className="flex justify-between items-center mb-10">
+                    <h2 className="font-bold text-2xl text-blue-500">
+                        Create a Project
+                    </h2>
                     <Link
                         href={route('projects.index')}
                         className="bg-red-600 hover:bg-gray-700 px-4 py-2 rounded-md text-white focus:outline-none"
@@ -27,10 +36,6 @@ const Create = () => {
                         Cancel
                     </Link>
                 </div>
-            }
-        >
-            <Head title="Add Project" />
-            <div className="bg-white shadow-md mx-auto mt-8 p-6 rounded-lg max-w-4xl">
                 <form onSubmit={handleSubmit} className="space-y-6">
                     {/* Title */}
                     <div>
@@ -112,10 +117,11 @@ const Create = () => {
                             type="file"
                             id="image"
                             name="image"
-                            onChange={(e) => setData('image', e.target.value)}
+                            onChange={(e) => setData('image', e.target.files[0])}
                             className="border-gray-300 focus:border-indigo-500 shadow-sm rounded-md focus:ring-indigo-500 w-full text-gray-700"
                             accept="image/*"
                         />
+
                         {errors.image && <div className="text-red-500 text-sm">{errors.image}</div>}
                     </div>
 
