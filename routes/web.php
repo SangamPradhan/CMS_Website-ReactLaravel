@@ -4,11 +4,11 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BlogsController;
 use App\Http\Controllers\EventsController;
 use App\Http\Controllers\GalleriesController;
-use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\TestimonialsController;
+use App\Models\Testimonials;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -23,9 +23,11 @@ use Inertia\Inertia;
 // });
 
 Route::get('/', function () {
-    return Inertia::render('Home');
+    $testimonials = Testimonials::all(); // Fetch all testimonials from the database
+    return Inertia::render('Home', [
+        'testimonials' => $testimonials, // Pass testimonials to the Home component
+    ]);
 });
-
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');

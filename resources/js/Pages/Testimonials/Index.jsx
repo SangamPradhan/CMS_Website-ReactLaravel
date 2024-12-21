@@ -55,38 +55,43 @@ export default function Index({ testimonials }) {
                                                 <td className="px-4 py-2 border">{testimonial.photo}</td>
                                                 <td className="px-4 py-2 border">
                                                     <div className="flex space-x-2">
-                                                        <Link href={route('testimonials.edit', testimonial.id)} className="mr-2">
-                                                            <button className="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded text-white focus:outline-none">
-                                                                <FontAwesomeIcon
-                                                                    icon={faPencilAlt}
-                                                                    className='mr-2'
-                                                                />
-                                                                Edit
-                                                            </button>
+                                                        <Link
+                                                            href={route(
+                                                                'testimonials.edit',
+                                                                testimonial.id
+                                                            )}
+                                                            className='bg-blue-100 hover:bg-blue-200 mr-2 px-4 py-2 rounded text-blue-600'>
+                                                            <FontAwesomeIcon
+                                                                icon={faPencilAlt}
+                                                                className='mr-2'
+                                                            />
+                                                            Edit
                                                         </Link>
 
-                                                        <Link href={route('testimonials.show', testimonial.id)} className="mr-2">
-                                                            <button className="bg-green-600 hover:bg-green-700 px-4 py-2 rounded text-white focus:outline-none">
-                                                                <FontAwesomeIcon
-                                                                    icon={faEye}
-                                                                    className='mr-2'
-                                                                />
-                                                                View
-                                                            </button>
+                                                        <Link
+                                                            href={route(
+                                                                'testimonials.show',
+                                                                testimonial.id
+                                                            )}
+                                                            className='bg-green-100 hover:bg-green-200 mr-2 px-4 py-2 rounded text-green-600'
+                                                        >
+                                                            <FontAwesomeIcon
+                                                                icon={faEye}
+                                                                className='mr-2'
+                                                            />
+                                                            Preview
                                                         </Link>
 
                                                         <Link
                                                             href={route('testimonials.destroy', testimonial.id)}
                                                             method="delete"
-                                                            className="mr-2"
+                                                            className='bg-red-100 hover:bg-green-200 mr-2 px-4 py-2 rounded text-red-600'
                                                         >
-                                                            <button className="bg-red-600 hover:bg-red-700 px-4 py-2 rounded text-white className= focus:outline-none">
-                                                                <FontAwesomeIcon
-                                                                    icon={faTrashAlt}
-                                                                    className='mr-2'
-                                                                />
-                                                                Delete
-                                                            </button>
+                                                            <FontAwesomeIcon
+                                                                icon={faTrashAlt}
+                                                                className='mr-2'
+                                                            />
+                                                            Delete
                                                         </Link>
                                                     </div>
                                                 </td>

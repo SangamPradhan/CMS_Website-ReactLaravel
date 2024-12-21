@@ -48,7 +48,7 @@ export default function Index({ events }) {
                             </div>
 
                             <div className="overflow-x-auto">
-                                <table className="mt-4 min-w-full">
+                                <table className="min-w-full">
                                     <thead>
                                         <tr>
                                             <th className="px-4 py-2">ID</th>

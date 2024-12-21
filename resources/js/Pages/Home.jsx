@@ -6,14 +6,14 @@ import Hero from '../../../resources/js/components/Hero/Hero.jsx';
 import Services from '../../../resources/js/components/Services/Services.jsx';
 import Testimonial from '../../../resources/js/components/Testimonial/Testimonial.jsx';
 
-const Home = () => {
+const Home = ({ testimonials = [] }) => {
     return (
         <>
             <Layout/>
             <Hero />
             <BrandsLogo />
             <Services />
-            <Testimonial />
+            <Testimonial testimonials={testimonials} />
             <BlogsComp />
             <Footer />
         </>

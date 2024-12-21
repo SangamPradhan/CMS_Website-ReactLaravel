@@ -11,7 +11,7 @@ html {
 
 @layer components {
     .link {
-        @apply cursor-pointer hover:underline;
+        @apply hover:underline cursor-pointer;
     }
     .button-outline {
         @apply rounded-md border-2 border-primary hover:bg-primary/80 hover:text-black duration-500 py-2 px-6 text-primary tracking-wider;
@@ -31,13 +31,13 @@ html {
 :root {
     color: #242424;
     --primary-bg-color: #e8ebff;
-    --primary-color: #50BCF1;
+    --primary-color: #50bcf1;
     --bg-color: #e8ebff;
     --light-bg-color: #ffffff;
-    --primary-font-color: #50BCF1;
+    --primary-font-color: #50bcf1;
     --light-font-color: #ffffff;
     --hover-font-color: #ffffff;
-    --hover-bg-color: #DDF5FF;
+    --hover-bg-color: #ddf5ff;
     --hover-bg-color-light: #e0e4ff;
     --table-heading-bg-color: #e8ebff;
     --light-hover-bg-color: #dfdada7b;
@@ -55,11 +55,11 @@ html {
     --placeholder-font-color: #7d7a9e;
     --item-hover-bg-color: #f4f5fb;
     --unpaid-color: #fa5f54;
-    --btn-primary: #50BCF1;
+    --btn-primary: #50bcf1;
     --btn-primary-hovor: #31b0ef;
 
     --nav-bar-height: 80px;
-    --header-bg-color: #50BCF1;
+    --header-bg-color: #50bcf1;
     --box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     --main-page-background-color: #fafcfb80;
     --text-color: #000000;

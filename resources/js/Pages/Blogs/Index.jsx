@@ -55,38 +55,32 @@ export default function Index({ blogs }) {
                                                 <td className="px-4 py-2 border">{blog.photo}</td>
                                                 <td className="px-4 py-2 border">
                                                     <div className="flex space-x-2">
-                                                        <Link href={route('blogs.edit', blog.id)} className="mr-2">
-                                                            <button className="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded text-white focus:outline-none">
+                                                        <Link href={route('blogs.edit', blog.id)} className='bg-blue-100 hover:bg-blue-200 mr-2 px-4 py-2 rounded text-blue-600'>
                                                                 <FontAwesomeIcon
                                                                     icon={faPencilAlt}
                                                                     className='mr-2'
                                                                 />
                                                                 Edit
-                                                            </button>
                                                         </Link>
 
-                                                        <Link href={route('blogs.show', blog.id)} className="mr-2">
-                                                            <button className="bg-green-600 hover:bg-green-700 px-4 py-2 rounded text-white focus:outline-none">
+                                                        <Link href={route('blogs.show', blog.id)} className='bg-green-100 hover:bg-green-200 mr-2 px-4 py-2 rounded text-green-600'>
                                                                 <FontAwesomeIcon
                                                                     icon={faEye}
                                                                     className='mr-2'
                                                                 />
                                                                 View
-                                                            </button>
                                                         </Link>
 
                                                         <Link
                                                             href={route('blogs.destroy', blog.id)}
                                                             method="delete"
-                                                            className="inline-block mr-2"
+                                                            className='bg-green-100 hover:bg-green-200 mr-2 px-4 py-2 rounded text-green-600'
                                                         >
-                                                            <button className="bg-red-600 hover:bg-red-700 px-4 py-2 rounded text-white className= focus:outline-none">
                                                                 <FontAwesomeIcon
                                                                     icon={faTrashAlt}
                                                                     className='mr-2'
                                                                 />
                                                                 Delete
-                                                            </button>
                                                         </Link>
                                                     </div>
                                                 </td>
