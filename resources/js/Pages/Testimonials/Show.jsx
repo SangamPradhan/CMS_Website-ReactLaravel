@@ -44,56 +44,61 @@ const Testimonial = () => {
     };
     return (
         <>
-        <AuthenticatedLayout
-        header={
-            <div className="flex justify-between items-center">
-                <h2 className="font-semibold text-gray-800 text-xl leading-tight">
-                    Blog Details
-                </h2>
-                <Link
-                    href={route('testimonials.index')}
-                    className="bg-blue-600 hover:bg-gray-700 px-4 py-2 rounded-md text-white focus:outline-none"
-                >
-                    Back
-                </Link>
-            </div>
-        }
-        >
-            <div className="py-10">
-                <div className="container">
-                    {/* testimonial section */}
-                    <div
-                        data-aos="fade-up"
-                        className="gap-6 grid grid-cols-1 mx-auto max-w-screen-xl"
-                    >
-                        <Slider {...settings}>
-                            {testimonialData.map(({ id, name, text, img }) => {
-                                return (
-                                    <div key={id} className="my-6">
-                                        {/* card */}
-                                        <div className="relative flex sm:flex-row flex-col gap-5 md:gap-14 dark:bg-gray-800 mx-4 p-4 rounded-xl">
-                                            <img
-                                                src={img}
-                                                alt=""
-                                                className="block mx-auto w-full sm:w-[200px] h-[300px] object-cover"
-                                            />
-                                            <div className="space-y-4">
-                                                <p className="xl:pr-40 text-black/80 text-gray-500 dark:text-white/80">
-                                                    “{text}”
+            <AuthenticatedLayout
+                header={
+                    <div className="flex justify-between items-center">
+                        <h2 className="font-semibold text-gray-800 text-xl leading-tight">
+                            Blog Details
+                        </h2>
+                    </div>
+                }
+            >
+                <div className="py-10">
+                    <div className="flex justify-between items-center mb-10">
+                        <h2 className="font-bold text-2xl text-blue-500">
+                            Testimonial from Client
+                        </h2>
+                        <Link
+                            href={route('testimonials.index')}
+                            className="bg-red-600 hover:bg-gray-700 px-4 py-2 rounded-md text-white focus:outline-none"
+                        >
+                            Cancel
+                        </Link>
+                    </div>
+                    <div className="container">
+                        {/* testimonial section */}
+                        <div
+                            data-aos="fade-up"
+                            className="gap-6 grid grid-cols-1 mx-auto max-w-screen-xl"
+                        >
+                            <Slider {...settings}>
+                                {testimonialData.map(({ id, name, text, img }) => {
+                                    return (
+                                        <div key={id} className="my-6">
+                                            {/* card */}
+                                            <div className="relative flex sm:flex-row flex-col gap-5 md:gap-14 dark:bg-gray-800 mx-4 p-4 rounded-xl">
+                                                <img
+                                                    src={img}
+                                                    alt=""
+                                                    className="block mx-auto w-full sm:w-[200px] h-[300px] object-cover"
+                                                />
+                                                <div className="space-y-4">
+                                                    <p className="xl:pr-40 text-black/80 text-gray-500 dark:text-white/80">
+                                                        “{text}”
+                                                    </p>
+                                                    <h1 className="font-bold text-xl">{name}</h1>
+                                                </div>
+                                                <p className="right-0 bottom-0 absolute font-serif text-[12rem] text-black/10">
+                                                    ,,
                                                 </p>
-                                                <h1 className="font-bold text-xl">{name}</h1>
                                             </div>
-                                            <p className="right-0 bottom-0 absolute font-serif text-[12rem] text-black/10">
-                                                ,,
-                                            </p>
                                         </div>
-                                    </div>
-                                );
-                            })}
-                        </Slider>
+                                    );
+                                })}
+                            </Slider>
+                        </div>
                     </div>
                 </div>
-            </div>
             </AuthenticatedLayout>
         </>
     );
