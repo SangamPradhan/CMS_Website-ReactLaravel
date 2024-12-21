@@ -1,3 +1,4 @@
+import ConfirmationDialog from '@/Components/ConfirmationDialog';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import {
     faEye,
@@ -5,12 +6,25 @@ import {
     faTrashAlt
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Head, Link } from '@inertiajs/react';
+import { Head, Link, useForm } from '@inertiajs/react';
 import { useState } from 'react';
 
 export default function Index({ testimonials }) {
     // Search state
     const [searchTerm, setSearchTerm] = useState('');
+    const [isDialogOpen, setIsDialogOpen] = useState(false);
+    const [deleteUrl, setDeleteUrl] = useState('');
+    const { delete: destroy } = useForm();
+
+    const handleDeleteClick = url => {
+        setDeleteUrl(url);
+        setIsDialogOpen(true);
+    };
+
+    const handleConfirmDelete = () => {
+        setIsDialogOpen(false);
+        destroy(deleteUrl);
+    };
 
     // Handle search input change
     const handleSearchChange = (event) => {
@@ -74,7 +88,7 @@ export default function Index({ testimonials }) {
                                                 <td className="px-4 py-2 border">{testimonial.photo}</td>
                                                 <td className="px-4 py-2 border">
                                                     <div className="flex space-x-2">
-                                                        <Link
+                                                        <button
                                                             href={route(
                                                                 'testimonials.edit',
                                                                 testimonial.id
@@ -85,9 +99,9 @@ export default function Index({ testimonials }) {
                                                                 className='mr-2'
                                                             />
                                                             Edit
-                                                        </Link>
+                                                        </button>
 
-                                                        <Link
+                                                        <button
                                                             href={route(
                                                                 'testimonials.show',
                                                                 testimonial.id
@@ -99,19 +113,22 @@ export default function Index({ testimonials }) {
                                                                 className='mr-2'
                                                             />
                                                             Preview
-                                                        </Link>
+                                                        </button>
 
-                                                        <Link
-                                                            href={route('testimonials.destroy', testimonial.id)}
-                                                            method="delete"
-                                                            className='bg-red-100 hover:bg-red-200 mr-2 px-4 py-2 rounded text-red-600'
+                                                        <button
+                                                            onClick={() =>
+                                                                handleDeleteClick(
+                                                                    route('testimonials.destroy', testimonial.id)
+                                                                )
+                                                            }
+                                                            className="bg-red-100 hover:bg-red-200 px-4 py-2 rounded text-red-600"
                                                         >
                                                             <FontAwesomeIcon
                                                                 icon={faTrashAlt}
-                                                                className='mr-2'
+                                                                className="mr-2"
                                                             />
                                                             Delete
-                                                        </Link>
+                                                        </button>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -123,6 +140,11 @@ export default function Index({ testimonials }) {
                     </div>
                 </div>
             </div>
+            <ConfirmationDialog
+                isOpen={isDialogOpen}
+                onClose={() => setIsDialogOpen(false)}
+                onConfirm={handleConfirmDelete}
+            />
         </AuthenticatedLayout>
     );
 }
