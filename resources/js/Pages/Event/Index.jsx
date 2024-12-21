@@ -10,20 +10,29 @@ import { Head, Link, useForm } from '@inertiajs/react';
 import { useState } from 'react';
 
 export default function Index({ events }) {
+    const [isDialogOpen, setIsDialogOpen] = useState(false);
+    const [deleteUrl, setDeleteUrl] = useState('');
+    const { delete: destroy } = useForm();
+    const [searchTerm, setSearchTerm] = useState('');
 
-    const [isDialogOpen, setIsDialogOpen] = useState(false)
-    const [deleteUrl, setDeleteUrl] = useState('')
-    const { delete: destroy } = useForm()
+    // Filter events by title based on the search term
+    const filteredEvents = events.filter(event =>
+        event.title.toLowerCase().includes(searchTerm.toLowerCase())
+    );
 
     const handleDeleteClick = url => {
-        setDeleteUrl(url)
-        setIsDialogOpen(true)
-    }
+        setDeleteUrl(url);
+        setIsDialogOpen(true);
+    };
 
     const handleConfirmDelete = () => {
-        setIsDialogOpen(false)
-        destroy(deleteUrl)
-    }
+        setIsDialogOpen(false);
+        destroy(deleteUrl);
+    };
+
+    const handleSearchChange = event => {
+        setSearchTerm(event.target.value);
+    };
 
     return (
         <AuthenticatedLayout
@@ -34,12 +43,18 @@ export default function Index({ events }) {
                 <div className="mx-auto sm:px-6 lg:px-8 max-w-7xl">
                     <div className="bg-white shadow-sm sm:rounded-lg overflow-hidden">
                         <div className="p-6 text-gray-900">
-                            <h1 className="font-bold text-2xl" >
+                            <h1 className="font-bold text-2xl">
                                 Your Events
                             </h1>
                             {/* Aligning the button to the top right */}
                             <div className="flex justify-end space-x-4 mb-4">
-                                <input type="text" className="px-2 py-1 search-input" placeholder="Search" />
+                                <input
+                                    type="text"
+                                    value={searchTerm}
+                                    onChange={handleSearchChange}
+                                    className="px-2 py-1 search-input"
+                                    placeholder="Search by Title"
+                                />
                                 <Link href={route('event.create')} className="btn btn-primary">
                                     <button className="bg-blue-600 hover:bg-blue-700 px-6 py-2 rounded-md text-white focus:outline-none">
                                         Add Event
@@ -63,7 +78,7 @@ export default function Index({ events }) {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {events.map(event => (
+                                        {filteredEvents.map(event => (
                                             <tr key={event.id}>
                                                 <td className="px-4 py-2 border">{event.id}</td>
                                                 <td className="px-4 py-2 border">{event.title}</td>
@@ -76,29 +91,23 @@ export default function Index({ events }) {
                                                 <td className="px-4 py-2 border">
                                                     <div className="flex space-x-2 px-4 py-2">
                                                         <Link
-                                                            href={route(
-                                                                'event.edit',
-                                                                event.id
-                                                            )}
-                                                            className='bg-blue-100 hover:bg-blue-200 mr-2 px-4 py-2 rounded text-blue-600'
+                                                            href={route('event.edit', event.id)}
+                                                            className="bg-blue-100 hover:bg-blue-200 mr-2 px-4 py-2 rounded text-blue-600"
                                                         >
                                                             <FontAwesomeIcon
                                                                 icon={faPencilAlt}
-                                                                className='mr-2'
+                                                                className="mr-2"
                                                             />
                                                             Edit
                                                         </Link>
 
                                                         <Link
-                                                            href={route(
-                                                                'event.show',
-                                                                event.id
-                                                            )}
-                                                            className='bg-green-100 hover:bg-green-200 mr-2 px-4 py-2 rounded text-green-600'
+                                                            href={route('event.show', event.id)}
+                                                            className="bg-green-100 hover:bg-green-200 mr-2 px-4 py-2 rounded text-green-600"
                                                         >
                                                             <FontAwesomeIcon
                                                                 icon={faEye}
-                                                                className='mr-2'
+                                                                className="mr-2"
                                                             />
                                                             Preview
                                                         </Link>
@@ -106,17 +115,14 @@ export default function Index({ events }) {
                                                         <button
                                                             onClick={() =>
                                                                 handleDeleteClick(
-                                                                    route(
-                                                                        'event.destroy',
-                                                                        event.id
-                                                                    )
+                                                                    route('event.destroy', event.id)
                                                                 )
                                                             }
-                                                            className='bg-red-100 hover:bg-red-200 px-4 py-2 rounded text-red-600'
+                                                            className="bg-red-100 hover:bg-red-200 px-4 py-2 rounded text-red-600"
                                                         >
                                                             <FontAwesomeIcon
                                                                 icon={faTrashAlt}
-                                                                className='mr-2'
+                                                                className="mr-2"
                                                             />
                                                             Delete
                                                         </button>

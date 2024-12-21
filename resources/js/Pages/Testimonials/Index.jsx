@@ -6,8 +6,21 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Head, Link } from '@inertiajs/react';
+import { useState } from 'react';
 
 export default function Index({ testimonials }) {
+    // Search state
+    const [searchTerm, setSearchTerm] = useState('');
+
+    // Handle search input change
+    const handleSearchChange = (event) => {
+        setSearchTerm(event.target.value);
+    };
+
+    // Filter testimonials based on the search term
+    const filteredTestimonials = testimonials.filter(testimonial =>
+        testimonial.title.toLowerCase().includes(searchTerm.toLowerCase())
+    );
 
     return (
         <AuthenticatedLayout
@@ -18,15 +31,21 @@ export default function Index({ testimonials }) {
                 <div className="mx-auto sm:px-6 lg:px-8 max-w-7xl">
                     <div className="bg-white shadow-sm sm:rounded-lg overflow-hidden">
                         <div className="p-6 text-gray-900">
-                            <h1 className="font-bold text-2xl" >
+                            <h1 className="font-bold text-2xl">
                                 Your testimonial Posts
                             </h1>
                             {/* Aligning the button to the top right */}
                             <div className="flex justify-end space-x-4 mb-4">
-                                <input type="text" className="px-2 py-1 search-input" placeholder="Search" />
+                                <input
+                                    type="text"
+                                    value={searchTerm}
+                                    onChange={handleSearchChange}
+                                    className="px-2 py-1 search-input"
+                                    placeholder="Search by Title"
+                                />
                                 <Link href={route('testimonials.create')} className="btn btn-primary">
                                     <button className="bg-blue-600 hover:bg-blue-700 px-6 py-2 rounded-md text-white focus:outline-none">
-                                        Add testimonial
+                                        Add Testimonial
                                     </button>
                                 </Link>
                             </div>
@@ -45,7 +64,7 @@ export default function Index({ testimonials }) {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {testimonials.map(testimonial => (
+                                        {filteredTestimonials.map(testimonial => (
                                             <tr key={testimonial.id}>
                                                 <td className="px-4 py-2 border">{testimonial.id}</td>
                                                 <td className="px-4 py-2 border">{testimonial.title}</td>
@@ -85,7 +104,7 @@ export default function Index({ testimonials }) {
                                                         <Link
                                                             href={route('testimonials.destroy', testimonial.id)}
                                                             method="delete"
-                                                            className='bg-red-100 hover:bg-green-200 mr-2 px-4 py-2 rounded text-red-600'
+                                                            className='bg-red-100 hover:bg-red-200 mr-2 px-4 py-2 rounded text-red-600'
                                                         >
                                                             <FontAwesomeIcon
                                                                 icon={faTrashAlt}
