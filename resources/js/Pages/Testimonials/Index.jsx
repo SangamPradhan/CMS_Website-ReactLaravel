@@ -88,7 +88,7 @@ export default function Index({ testimonials }) {
                                                 <td className="px-4 py-2 border">{testimonial.photo}</td>
                                                 <td className="px-4 py-2 border">
                                                     <div className="flex space-x-2">
-                                                        <button
+                                                        <Link
                                                             href={route(
                                                                 'testimonials.edit',
                                                                 testimonial.id
@@ -99,9 +99,9 @@ export default function Index({ testimonials }) {
                                                                 className='mr-2'
                                                             />
                                                             Edit
-                                                        </button>
+                                                        </Link>
 
-                                                        <button
+                                                        <Link
                                                             href={route(
                                                                 'testimonials.show',
                                                                 testimonial.id
@@ -113,7 +113,7 @@ export default function Index({ testimonials }) {
                                                                 className='mr-2'
                                                             />
                                                             Preview
-                                                        </button>
+                                                        </Link>
 
                                                         <button
                                                             onClick={() =>

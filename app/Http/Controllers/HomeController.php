@@ -14,7 +14,7 @@ class HomeController extends Controller
     {
         $testimonials = Testimonials::all()->map(function ($testimonial) {
             // Ensure the photo field contains the correct URL
-            $testimonial->photo = asset('storage/testimonials/' . $testimonial->photo); // Adjust the path as needed
+            $testimonial->photo = storage_path('storage/testimonials/' . $testimonial->photo); // Adjust the path as needed
             return $testimonial;
         });
 

@@ -34,6 +34,13 @@ export default function Index({ projects }) {
         setSearchTerm(event.target.value);
     };
 
+    const truncateText = (text, maxLength) => {
+        if (text.length > maxLength) {
+            return text.substring(0, maxLength) + '...';
+        }
+        return text;
+    };
+
     return (
         <AuthenticatedLayout
             header={<h2 className="font-semibold text-gray-800 text-xl leading-tight">Projects</h2>}
@@ -81,9 +88,9 @@ export default function Index({ projects }) {
                                                 <td className="px-4 py-2 border">{project.id}</td>
                                                 <td className="px-4 py-2 border">{project.title}</td>
                                                 <td className="px-4 py-2 border">{project.subtitle}</td>
-                                                <td className="px-4 py-2 border">{project.description}</td>
+                                                <td className="px-4 py-2 border">{truncateText(project.description, 40)}</td>
                                                 <td className="px-4 py-2 border">{project.date}</td>
-                                                <td className="px-4 py-2 border">{project.image}</td>
+                                                <td className="px-4 py-2 border">{truncateText(project.image, 20)}</td>
                                                 <td className="px-4 py-2 border">
                                                     <div className="flex space-x-2">
                                                         <Link

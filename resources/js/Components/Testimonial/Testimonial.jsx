@@ -42,6 +42,7 @@ const Testimonial = ({ testimonials }) => {
                                     <div className="relative flex sm:flex-row flex-col gap-5 md:gap-14 dark:bg-gray-800 mx-4 p-4 rounded-xl">
                                         <div className="w-[200px] h-[300px] overflow-hidden">
                                             <img
+                                            
                                                 src={testimonial.photo}
                                                 alt={testimonial.title}
                                                 className="w-full h-full object-cover" // Ensures image maintains aspect ratio and fits the container

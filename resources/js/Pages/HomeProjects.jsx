@@ -24,7 +24,7 @@ const Projects = ({ projects }) => {
                                 <div className="bg-gray-900 shadow-md rounded-lg overflow-hidden">
                                     <figure className="relative">
                                         <img
-                                            src={project.image}
+                                            src={`/storage/${project.image}`}
                                             alt={project.title}
                                             className="group-hover:scale-105 w-full h-64 transition-transform duration-300 object-cover"
                                         />
