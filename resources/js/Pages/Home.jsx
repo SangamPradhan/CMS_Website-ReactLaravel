@@ -6,7 +6,7 @@ import Hero from '../../../resources/js/components/Hero/Hero.jsx';
 import Services from '../../../resources/js/components/Services/Services.jsx';
 import Testimonial from '../../../resources/js/components/Testimonial/Testimonial.jsx';
 
-const Home = ({ testimonials = [] }) => {
+const Home = ({ testimonials = [], blogs = [] }) => {
     return (
         <>
             <Layout/>
@@ -14,7 +14,7 @@ const Home = ({ testimonials = [] }) => {
             <BrandsLogo />
             <Services />
             <Testimonial testimonials={testimonials} />
-            <BlogsComp />
+            <BlogsComp blogs={blogs}/>
             <Footer />
         </>
     )

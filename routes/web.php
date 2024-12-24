@@ -8,6 +8,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\TestimonialsController;
+use App\Models\Blogs;
 use App\Models\Testimonials;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -24,8 +25,10 @@ use Inertia\Inertia;
 
 Route::get('/', function () {
     $testimonials = Testimonials::all(); // Fetch all testimonials from the database
+    $blogs = Blogs::all(); // Fetch all blogs from the database
     return Inertia::render('Home', [
         'testimonials' => $testimonials, // Pass testimonials to the Home component
+        'blogs' => $blogs,
     ]);
 });
 

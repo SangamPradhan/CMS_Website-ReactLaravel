@@ -59,26 +59,6 @@ class BlogsController extends Controller
 
         return redirect()->route('blogs.index')->with('success', 'Blog post created successfully.');
 
-        // $validatedData = $request->validate([
-        //     'title' => 'required|string|max:255',
-        //     'short_description' => 'required|string|max:255',
-        //     'long_description' => 'required|string',
-        //     'date' => 'required|date',
-        //     'photo' => 'required',
-        // ]);
-
-        // // Handle file upload
-        // if ($request->hasFile('photo')) {
-        //     $photoPath = $request->file('photo')->store('blogs', 'public');
-        //     $validatedData['photo'] = $photoPath;
-        //     $request->save();
-        // }
-
-        // Store the data in the database
-        // Blogs::create($validatedData);
-
-        // Return success response
-        // return redirect()->route('blogs.index')->with('success', 'Blog post created successfully.');
     }
 
     /**

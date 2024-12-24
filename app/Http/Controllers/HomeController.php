@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Blogs;
 use App\Models\Events;
 use App\Models\Projects;
 use App\Models\Testimonials;
@@ -18,8 +19,15 @@ class HomeController extends Controller
             return $testimonial;
         });
 
+        $blogs = Blogs::all()->map(function ($blogs) {
+            // Ensure the photo field contains the correct URL
+            $blogs->photo = storage_path('storage/blogs/' . $blogs->photo); // Adjust the path as needed
+            return $blogs;
+        });
+
         return Inertia::render('Home', [
             'testimonials' => $testimonials,
+            'blogs' => $blogs,
         ]);
     }
 
