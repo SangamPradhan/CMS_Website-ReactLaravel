@@ -34,6 +34,13 @@ export default function Index({ blogs }) {
         setSearchTerm(event.target.value);
     };
 
+    const truncateText = (text, maxLength) => {
+        if (text.length > maxLength) {
+            return text.substring(0, maxLength) + '...';
+        }
+        return text;
+    };
+
     return (
         <AuthenticatedLayout
             header={<h2 className="font-semibold text-gray-800 text-xl leading-tight">Blogs</h2>}
@@ -68,8 +75,10 @@ export default function Index({ blogs }) {
                                         <tr>
                                             <th className="px-4 py-2">ID</th>
                                             <th className="px-4 py-2">Title</th>
-                                            <th className="px-4 py-2">Content</th>
+                                            <th className="px-4 py-2">Short Description</th>
+                                            <th className="px-4 py-2">Long Description</th>
                                             <th className="px-4 py-2">Date</th>
+                                            <th className="px-4 py-2">Photo</th>
                                             <th className="px-4 py-2">Actions</th>
                                         </tr>
                                     </thead>
@@ -78,8 +87,10 @@ export default function Index({ blogs }) {
                                             <tr key={blog.id}>
                                                 <td className="px-4 py-2 border">{blog.id}</td>
                                                 <td className="px-4 py-2 border">{blog.title}</td>
-                                                <td className="px-4 py-2 border">{blog.content}</td>
+                                                <td className="px-4 py-2 border">{truncateText(blog.short_description, 20)}</td>
+                                                <td className="px-4 py-2 border">{truncateText(blog.long_description, 20)}</td>
                                                 <td className="px-4 py-2 border">{blog.date}</td>
+                                                <td className="px-4 py-2 border">{truncateText(blog.photo, 20)}</td>
                                                 <td className="px-4 py-2 border">
                                                     <div className="flex space-x-2 px-4 py-2">
                                                         <Link

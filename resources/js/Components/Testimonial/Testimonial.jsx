@@ -43,7 +43,7 @@ const Testimonial = ({ testimonials }) => {
                                         <div className="w-[200px] h-[300px] overflow-hidden">
                                             <img
                                             
-                                                src={testimonial.photo}
+                                            src={`/storage/${testimonial.photo}`}
                                                 alt={testimonial.title}
                                                 className="w-full h-full object-cover" // Ensures image maintains aspect ratio and fits the container
                                             />

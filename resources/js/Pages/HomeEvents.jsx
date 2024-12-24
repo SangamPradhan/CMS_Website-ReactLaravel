@@ -1,92 +1,63 @@
 import Layout from "@/Layouts/layout";
-import Footer from '../components/Footer/Footer.jsx'; // Adjust the path based on your project structure
+import Footer from "../components/Footer/Footer.jsx"; // Adjust the path based on your project structure
 
 const HomeEvents = ({ events }) => {
-    const today = new Date().toLocaleDateString();
-    // const events = [
-    //     {
-    //         id: 1,
-    //         image: event1,
-    //         badge: "Working Tips",
-    //         title: "Helpful Tips for Working from Home as a Freelancer",
-    //         text: "Gosh jaguar ostrich quail one excited dear hello and bound and the and bland moral misheard roadrunner flapped lynx far that and jeepers giggled far and far",
-    //         tags: ["Travel", "Lifestyle"],
-    //         readTime: "3 mins read",
-    //     },
-    //     {
-    //         id: 2,
-    //         image: event2,
-    //         badge: "Working Tips",
-    //         title: "Helpful Tips for Working from Home as a Freelancer",
-    //         text: "Gosh jaguar ostrich quail one excited dear hello and bound and the and bland moral misheard roadrunner flapped lynx far that and jeepers giggled far and far",
-    //         tags: ["Travel", "Lifestyle"],
-    //         readTime: "3 mins read",
-    //     },
-    //     {
-    //         id: 3,
-    //         image: event3,
-    //         badge: "Working Tips",
-    //         title: "Helpful Tips for Working from Home as a Freelancer",
-    //         text: "Gosh jaguar ostrich quail one excited dear hello and bound and the and bland moral misheard roadrunner flapped lynx far that and jeepers giggled far and far",
-    //         tags: ["Travel", "Lifestyle"],
-    //         readTime: "3 mins read",
-    //     },
-    //     {
-    //         id: 4,
-    //         image: event4,
-    //         badge: "Working Tips",
-    //         title: "Helpful Tips for Working from Home as a Freelancer",
-    //         text: "Gosh jaguar ostrich quail one excited dear hello and bound and the and bland moral misheard roadrunner flapped lynx far that and jeepers giggled far and far",
-    //         tags: ["Travel", "Lifestyle"],
-    //         readTime: "3 mins read",
-    //     },
-    // ];
-
     return (
         <>
-        <Layout/>
-            {/* Recent events Section */}
-            <div className="bg-gray-950 px- py-10 text-white">
+            <Layout />
+            {/* Recent Events Section */}
+            <div className="bg-gray-950 px-4 py-10 text-white">
                 <div className="mx-auto max-w-7xl">
-                    <h2 className="mb-4 ml-16 font-bold text-2xl">Recent Event Updates</h2>
-                    <p className="mb-8 ml-16 text-gray-400">Check out the upcoming and past events</p>
+                    <h2 className="mb-4 ml-4 font-bold text-2xl text-center">Recent Event Updates</h2>
+                    <p className="mb-8 ml-4 text-center text-gray-400">Check out the upcoming and past events</p>
                     <ul className="space-y-8">
                         {events.map((event) => (
                             <li
                                 key={event.id}
-                                className="flex md:flex-row flex-col items-start bg-gray-800 shadow-lg mx-auto rounded-lg max-w-[90%] max-h-[400px] overflow-hidden"
+                                className="flex md:flex-row flex-col items-start bg-gray-800 shadow-lg mx-auto rounded-lg max-w-[90%] overflow-hidden"
                             >
                                 {/* Image Section */}
-                                <div className="w-full md:w-1/3 h-auto">
+                                <div
+                                    className="flex-shrink-0 w-full md:w-1/3"
+                                    style={{ height: "300px", maxWidth: "300px", minWidth: "250px" }}
+                                >
                                     <img
-                                        src={event.image}
+                                        src={`/storage/${event.photo}`}
                                         alt={event.title}
-                                        className="rounded-l-lg md:rounded-t-none w-full h-full object-cover"
+                                        className="w-full h-full object-cover"
                                     />
                                 </div>
 
                                 {/* Text Section */}
-                                <div className="flex-1 p-4">
+                                <div
+                                    className="flex flex-col flex-1 justify-between p-4"
+                                    style={{ minHeight: "300px", maxHeight: "300px" }}
+                                >
                                     {/* Badge */}
-                                    <span className="bg-blue-600 px-3 py-1 rounded-full text-sm text-white">
+                                    <span
+                                        className="bg-blue-600 px-3 py-1 rounded-full text-sm text-white"
+                                        style={{ maxWidth: '15%', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}
+                                    >
                                         {event.short_tips}
                                     </span>
+
+
                                     {/* Title */}
                                     <h3 className="mt-3 font-bold text-4xl hover:text-blue-500 cursor-pointer">
                                         {event.title}
                                     </h3>
 
                                     {/* Description */}
-                                    <br/><p className="mt-2 pb-20 text-gray-400 text-lg">{event.short_description}</p>
+                                    <p className="mt-2 text-gray-400 text-lg">{event.short_description}</p>
 
                                     <div className="flex justify-between items-center mt-4">
                                         {/* Tags */}
                                         <div className="space-x-2">
                                             #{event.hashtags}
                                         </div>
-                                        {/* Read Time */}
+                                        {/* Date */}
                                         <div className="flex items-center text-gray-400 text-sm">
-                                            <span className="mr-1 text-lg material-icons">Date: </span>
+                                            <span className="mr-1 text-lg material-icons">Date:</span>
                                             {event.date}
                                         </div>
                                     </div>
@@ -122,3 +93,9 @@ const HomeEvents = ({ events }) => {
 };
 
 export default HomeEvents;
+
+
+
+// <span className="bg-blue-600 px-3 py-1 rounded-full text-sm text-white">
+// {event.short_tips}
+// </span>

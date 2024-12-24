@@ -34,6 +34,13 @@ export default function Index({ events }) {
         setSearchTerm(event.target.value);
     };
 
+    const truncateText = (text, maxLength) => {
+        if (text.length > maxLength) {
+            return text.substring(0, maxLength) + '...';
+        }
+        return text;
+    };
+
     return (
         <AuthenticatedLayout
             header={<h2 className="font-semibold text-gray-800 text-xl leading-tight">Add Event</h2>}
@@ -82,12 +89,12 @@ export default function Index({ events }) {
                                             <tr key={event.id}>
                                                 <td className="px-4 py-2 border">{event.id}</td>
                                                 <td className="px-4 py-2 border">{event.title}</td>
-                                                <td className="px-4 py-2 border">{event.short_description}</td>
-                                                <td className="px-4 py-2 border">{event.long_description}</td>
+                                                <td className="px-4 py-2 border">{truncateText(event.short_description, 40)}</td>
+                                                <td className="px-4 py-2 border">{truncateText(event.long_description, 40)}</td>
                                                 <td className="px-4 py-2 border">{event.date}</td>
                                                 <td className="px-4 py-2 border">{event.hashtags}</td>
                                                 <td className="px-4 py-2 border">{event.short_tips}</td>
-                                                <td className="px-4 py-2 border">{event.photo}</td>
+                                                <td className="px-4 py-2 border">{truncateText(event.photo, 20)}</td>
                                                 <td className="px-4 py-2 border">
                                                     <div className="flex space-x-2 px-4 py-2">
                                                         <Link

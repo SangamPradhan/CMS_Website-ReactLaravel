@@ -61,9 +61,10 @@ const Create = () => {
                         <label htmlFor="short_description" className="block mb-2 font-medium text-gray-700">
                             Short Description
                         </label>
-                        <input
+                        <textarea
                             type="text"
                             id="short_description"
+                            rows="3"
                             name="short_description"
                             value={data.short_description}
                             onChange={(e) => setData('short_description', e.target.value)}
@@ -153,10 +154,11 @@ const Create = () => {
                             type="file"
                             id="photo"
                             name="photo"
-                            onChange={(e) => setData('photo', e.target.value)}
+                            onChange={(e) => setData('photo', e.target.files[0])}
                             className="border-gray-300 focus:border-indigo-500 shadow-sm rounded-md focus:ring-indigo-500 w-full text-gray-700"
                             accept="image/*"
                         />
+
                         {errors.photo && <div className="text-red-500 text-sm">{errors.photo}</div>}
                     </div>
 

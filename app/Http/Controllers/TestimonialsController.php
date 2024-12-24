@@ -50,7 +50,8 @@ class TestimonialsController extends Controller
         }
 
         // Store the data in the database
-        Testimonials::create($request->all());
+
+        Testimonials::create($validatedData);
         // Return a response, such as redirecting the user back to the projects listing page
         return redirect()->route('testimonials.index')->with('success', 'Testimonial created successfully.');
     }

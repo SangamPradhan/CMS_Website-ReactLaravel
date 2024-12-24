@@ -45,15 +45,19 @@ class BlogsController extends Controller
             'photo' => 'required|file|mimes:pdf,jpg,jpeg,png',
         ]);
 
-        $filePath = $request->file('photo')->store('blogs', 'public');
+        if ($request->hasFile('photo')) {
+            $filePath = $request->file('photo')->store('blogs', 'public');
+        }
 
         Blogs::create([
-            'name' => $request->name,
             'title' => $request->title,
             'short_description' => $request->short_description,
             'long_description' => $request->long_description,
+            'date' => $request->date,
             'photo' => $filePath,
         ]);
+
+        return redirect()->route('blogs.index')->with('success', 'Blog post created successfully.');
 
         // $validatedData = $request->validate([
         //     'title' => 'required|string|max:255',
@@ -74,7 +78,7 @@ class BlogsController extends Controller
         // Blogs::create($validatedData);
 
         // Return success response
-        return redirect()->route('blogs.index')->with('success', 'Blog post created successfully.');
+        // return redirect()->route('blogs.index')->with('success', 'Blog post created successfully.');
     }
 
     /**

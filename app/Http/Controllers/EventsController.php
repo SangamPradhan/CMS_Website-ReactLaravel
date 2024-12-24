@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Events;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 class EventsController extends Controller
@@ -37,27 +38,34 @@ class EventsController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
+        $request->validate([
             'title' => 'required|string|max:255',
             'short_description' => 'required|string|max:255',
             'long_description' => 'required|string',
             'date' => 'required|date',
-            'hashtags' => 'required|string',
-            'short_tips' => 'required|string',
-            'photo' => 'required',
+            'hashtags' => 'required|string|max:255',
+            'short_tips' => 'required|string|max:255',
+            'photo' => 'required|image|mimes:jpg,jpeg,png,gif|max:2048',
         ]);
 
         // Handle file upload
         if ($request->hasFile('photo')) {
             $photoPath = $request->file('photo')->store('events', 'public');
-            $validatedData['photo'] = $photoPath;
         }
 
-        // Store the data in the database
-        Events::create($request->all());
+        // Store the event data
+        Events::create([
+            'title' => $request->title,
+            'short_description' => $request->short_description,
+            'long_description' => $request->long_description,
+            'date' => $request->date,
+            'hashtags' => $request->hashtags,
+            'short_tips' => $request->short_tips,
+            'photo' => $photoPath,
+        ]);
 
-        // Return success response
-        return redirect()->route('event.index')->with('success', 'Event created successfully.');
+        // Redirect with success message
+        return redirect()->route('blogs.index')->with('success', 'Event created successfully.');
     }
 
 
@@ -109,9 +117,13 @@ class EventsController extends Controller
 
         // Handle photo upload if provided
         if ($request->hasFile('photo')) {
+            if ($event->photo) {
+                Storage::disk('public')->delete($event->photo);
+            }
             $path = $request->file('photo')->store('events', 'public');
-            $event->update(['photo' => $path]); // Save the photo path
+            $event->update(['photo' => $path]);
         }
+
 
         // Redirect back to the event listing with a success message
         return redirect()->route('event.index')->with('success', 'Event updated successfully.');

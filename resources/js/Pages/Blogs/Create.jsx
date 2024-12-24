@@ -112,18 +112,19 @@ const Create = () => {
                     {/* Photo Upload */}
                     <div>
                         <label htmlFor="photo" className="block mb-2 font-medium text-gray-700">
-                            blog Photo
+                            Blog Photo
                         </label>
                         <input
                             type="file"
                             id="photo"
                             name="photo"
-                            onChange={(e) => setData('photo', e.target.value)}
+                            onChange={(e) => setData('photo', e.target.files[0])} // Corrected this line
                             className="border-gray-300 focus:border-indigo-500 shadow-sm rounded-md focus:ring-indigo-500 w-full text-gray-700"
                             accept="image/*"
                         />
                         {errors.photo && <div className="text-red-500 text-sm">{errors.photo}</div>}
                     </div>
+
 
                     {/* Submit Button */}
                     <div>
