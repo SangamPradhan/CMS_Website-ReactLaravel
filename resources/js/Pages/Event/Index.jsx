@@ -8,6 +8,9 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Head, Link, useForm } from '@inertiajs/react';
 import { useState } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 export default function Index({ events }) {
     const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -27,7 +30,12 @@ export default function Index({ events }) {
 
     const handleConfirmDelete = () => {
         setIsDialogOpen(false);
-        destroy(deleteUrl);
+        destroy(deleteUrl, {
+            onSuccess: () => {
+                // Show success toast after deletion
+                toast.success('Event deleted successfully!');
+            }
+        });
     };
 
     const handleSearchChange = event => {
@@ -144,6 +152,7 @@ export default function Index({ events }) {
                     </div>
                 </div>
             </div>
+            <ToastContainer />
             <ConfirmationDialog
                 isOpen={isDialogOpen}
                 onClose={() => setIsDialogOpen(false)}

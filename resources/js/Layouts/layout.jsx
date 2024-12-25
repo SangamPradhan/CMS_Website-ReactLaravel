@@ -2,7 +2,6 @@ import { useState } from "react";
 import "slick-carousel/slick/slick.css";
 import Navbar from "./Navbar";
 
-
 import ResponsiveMenu from "./ResponsiveMenu";
 
 const Layout = ({ children }) => {
@@ -39,7 +38,6 @@ const Layout = ({ children }) => {
                 {/* Responsive Menu */}
                 <ResponsiveMenu showMenu={showMenu} />
             </header>
-
 
             {/* Main Content */}
             <main className="px-1 py-0 w-full">{children}</main>

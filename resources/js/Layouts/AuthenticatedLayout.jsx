@@ -37,7 +37,7 @@ export default function AuthenticatedLayout({ header, children }) {
     return (
         <div className="flex">
             {/* Sidebar */}
-            <div id="sidebar" className="top-0 sticky bg-[#E6F4FF] p-4 w-64 min-h-screen overflow-y-auto">
+            <div id="sidebar" className="top-0 z-0 sticky bg-[#E6F4FF] p-4 w-64 min-h-screen overflow-y-auto">
                 <div className="mb-6">
                     <div className="flex items-center shrink-0">
                         <Link href="/dashboard">
@@ -60,7 +60,7 @@ export default function AuthenticatedLayout({ header, children }) {
             {/* Main Content */}
             <div className="flex flex-col flex-1 bg-gray-100 min-w-0 transition-all duration-300 ease-in-out">
                 {header && (
-                    <header id="header" className="top-0 z-10 sticky bg-white shadow">
+                    <header id="header" className="top-0 z-0 sticky bg-white shadow">
                         <div className="flex justify-between items-center mx-auto px-4 sm:px-6 lg:px-8 py-6 max-w-7xl">
                             <div>{header}</div>
                             <div className="relative ml-auto">

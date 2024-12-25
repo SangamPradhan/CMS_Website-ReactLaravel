@@ -1,5 +1,7 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link, useForm } from '@inertiajs/react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Create = () => {
     const { data, setData, post, errors } = useForm({
@@ -9,6 +11,10 @@ const Create = () => {
         date: '',
         photo: null,
     });
+
+    if (route().current('projects.index') && route().has('success')) {
+        toast.success(route().success);
+    }
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -136,6 +142,7 @@ const Create = () => {
                     </div>
                 </form>
             </div>
+            <ToastContainer />
         </AuthenticatedLayout>
     );
 };

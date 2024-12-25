@@ -1,7 +1,8 @@
 import Layout from '@/Layouts/layout';
 import { useForm } from '@inertiajs/react'; // Import useForm for form handling
 import { FaEnvelope, FaFacebook, FaInstagram, FaLinkedin, FaMapMarkerAlt, FaPhoneAlt } from "react-icons/fa"; // Import necessary icons
-import Footer from '../components/Footer/Footer';
+import 'react-toastify/dist/ReactToastify.css'; // Import css for toastify
+import Footer from '../components/Footer/Footer'; // Import Footer component
 
 const ContactPage = () => {
     // Initialize the form data and methods using useForm
@@ -24,6 +25,7 @@ const ContactPage = () => {
         <>
             <Layout />
             <section className="mx-auto my-8 px-4 container">
+
                 <h2 className="mb-8 font-semibold text-3xl text-center">Contact Us</h2>
 
                 <div className="gap-8 grid grid-cols-1 md:grid-cols-2">
