@@ -16,8 +16,8 @@ const Layout = ({ children }) => {
     return (
         <>
             {/* Header Section */}
-            <header className="relative z-100 w-full">
-                <div className="px-1 w-full">
+            <header className="top-0 z-50 sticky w-full">
+                <div className="top-0 sticky px-1 w-full">
                     {/* Navbar */}
                     <Navbar />
 

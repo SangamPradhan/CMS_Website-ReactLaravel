@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Blogs;
+use App\Models\Contacts;
 use App\Models\Events;
 use App\Models\Projects;
 use App\Models\Testimonials;
@@ -34,6 +35,28 @@ class HomeController extends Controller
     public function contactpage()
     {
         return Inertia::render('ContactPage');
+    }
+
+    public function store(Request $request)
+    {
+        // Validate the incoming request data
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'subject' => 'required|string|max:255',
+            'message' => 'required|string|max:1000',
+        ]);
+
+        // Create a new contact record in the database
+        Contacts::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'subject' => $request->subject,
+            'message' => $request->message,
+        ]);
+
+        // Redirect back with a success message
+        return redirect()->back()->with('success', 'Your message has been sent successfully! ');
     }
 
     public function aboutus()

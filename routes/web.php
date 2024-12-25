@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BlogsController;
+use App\Http\Controllers\ContactsController;
 use App\Http\Controllers\EventsController;
 use App\Http\Controllers\GalleriesController;
 use App\Http\Controllers\HomeController;
@@ -45,6 +46,7 @@ Route::middleware('auth')->group(function () {
 
 
 Route::get('/contactpage', [HomeController::class, 'contactpage']);
+Route::post('/contact', [ContactsController::class, 'store'])->name('contact.store');
 Route::get('/aboutus', [HomeController::class, 'aboutus']);
 Route::get('/homegallery', [HomeController::class, 'homegallery']);
 Route::get('/homeevent', [HomeController::class, 'homeevent']);

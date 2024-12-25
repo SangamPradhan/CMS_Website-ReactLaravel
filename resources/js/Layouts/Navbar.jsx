@@ -32,7 +32,7 @@ const Navbar = () => {
     }, [currentUrl]);
 
     return (
-        <div className="relative z-10 dark:bg-black w-full dark:text-white duration-300">
+        <div className="relative z-10 bg-white w-full dark:text-white duration-300">
             <div className="py-3 md:py-2 container">
                 <div className="flex justify-between items-center">
                     {/* Logo section */}
@@ -138,8 +138,9 @@ const Navbar = () => {
                             </li>
 
                             <li>
-                                <button className="primary-btn"> <Link href="/contactpage">Contact Us</Link> </button>
-
+                                <button className="primary-btn">
+                                    <Link href="/contactpage">Contact Us</Link>
+                                </button>
                             </li>
                         </ul>
                     </nav>

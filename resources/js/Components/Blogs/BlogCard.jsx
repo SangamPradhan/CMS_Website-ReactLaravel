@@ -3,11 +3,12 @@ import { FaArrowRight } from "react-icons/fa6";
 const BlogCard = ({ blog }) => {
     return (
         <div className="dark:text-white group">
-            <div className="overflow-hidden">
+            {/* Container for the image with fixed size */}
+            <div className="w-full h-60 overflow-hidden"> 
                 <img
                     src={`/storage/${blog.photo}`} // Adjust the image path as per your setup
                     alt={blog.title}
-                    className="w-full h-full object-cover" // Ensures image maintains aspect ratio and fits the container
+                    className="w-full h-full object-cover" // Ensures the image covers the container proportionally
                 />
             </div>
             <div className="space-y-2 bg-white dark:bg-slate-950 ml-6 p-4 -translate-y-16">
