@@ -12,7 +12,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 
-export default function Index({ projects, success }) {
+export default function Index({ projects, flash }) {
     const [searchTerm, setSearchTerm] = useState('');
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [deleteUrl, setDeleteUrl] = useState('');
@@ -24,11 +24,13 @@ export default function Index({ projects, success }) {
     };
 
     useEffect(() => {
-        // Show toast notification if success message is available
-        if (success) {
-            toast.success(success);  // Show success toast
+        if (flash.message.success) {
+            toast.success(flash.message.success);  // Pass the success message
         }
-    }, [success]);
+        if (flash.message.error) {
+            toast.error(flash.message.error);  // Pass the error message
+        }
+    }, [flash]);
 
     // if (route().current('projects.index') && route().has('success')) {
     //     toast.success(route().success);
@@ -36,13 +38,18 @@ export default function Index({ projects, success }) {
 
     const handleConfirmDelete = () => {
         setIsDialogOpen(false);
-        destroy(deleteUrl, {
-            onSuccess: () => {
-                // Show success toast after deletion
-                toast.success('Project deleted successfully!');
-            }
-        });
+        destroy(deleteUrl);
     };
+
+    // const handleConfirmDelete = () => {
+    //     setIsDialogOpen(false);
+    //     destroy(deleteUrl, {
+    //         onSuccess: () => {
+    //             // Show success toast after deletion
+    //             toast.success('Project deleted successfully!');
+    //         }
+    //     });
+    // };
 
     // Filter projects by title based on the search term
     const filteredProjects = projects.filter(project =>

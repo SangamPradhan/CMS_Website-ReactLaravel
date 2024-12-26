@@ -57,7 +57,7 @@ class BlogsController extends Controller
             'photo' => $filePath,
         ]);
 
-        return redirect()->route('blogs.index')->with('success', 'Blog post created successfully.');
+        return redirect()->route('blogs.index')->with(['success' => 'Blog post created successfully.']);
 
     }
 
@@ -110,7 +110,7 @@ class BlogsController extends Controller
         }
 
         // Redirect back to the blog listing with a success message
-        return redirect()->route('blogs.index')->with('success', 'blog updated successfully.');
+        return redirect()->route('blogs.index')->with(['success' => 'blog updated successfully.']);
     }
 
     /**
@@ -119,7 +119,7 @@ class BlogsController extends Controller
     public function destroy(Blogs $blog)
     {
         $blog->delete();
-        return redirect()->route('blogs.index')->with('success', 'Blog post deleted successfully.');
+        return redirect()->route('blogs.index')->with(['success' => 'Blog post deleted successfully.']);
 
     }
 }

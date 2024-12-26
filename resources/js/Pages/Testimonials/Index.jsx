@@ -7,11 +7,11 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Head, Link, useForm } from '@inertiajs/react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-export default function Index({ testimonials }) {
+export default function Index({ testimonials, flash }) {
     // Search state
     const [searchTerm, setSearchTerm] = useState('');
     const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -25,13 +25,17 @@ export default function Index({ testimonials }) {
 
     const handleConfirmDelete = () => {
         setIsDialogOpen(false);
-        destroy(deleteUrl, {
-            onSuccess: () => {
-                // Show success toast after deletion
-                toast.success('Selected Testimonial deleted successfully!');
-            }
-        });
+        destroy(deleteUrl);
     };
+
+    useEffect(() => {
+        if (flash.message.success) {
+            toast.success(flash.message.success);
+        }
+        if (flash.message.error) {
+            toast.error(flash.message.error);
+        }
+    }, [flash]);
 
     // Handle search input change
     const handleSearchChange = (event) => {

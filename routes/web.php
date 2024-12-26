@@ -51,6 +51,7 @@ Route::get('/aboutus', [HomeController::class, 'aboutus']);
 Route::get('/homegallery', [HomeController::class, 'homegallery']);
 Route::get('/homeevent', [HomeController::class, 'homeevent']);
 Route::get('/homeprojects', [HomeController::class, 'homeprojects']);
+Route::post('/homeprojects', [HomeController::class, 'addprojectreview'])->name('projects.addprojectreview');
 
 // Segment management routes
 Route::middleware('auth')->group(function () {

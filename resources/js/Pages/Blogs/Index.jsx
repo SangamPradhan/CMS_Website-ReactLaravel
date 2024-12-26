@@ -7,9 +7,11 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Head, Link, useForm } from '@inertiajs/react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-export default function Index({ blogs }) {
+export default function Index({ blogs, flash }) {
     const [searchTerm, setSearchTerm] = useState('');
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [deleteUrl, setDeleteUrl] = useState('');
@@ -24,6 +26,15 @@ export default function Index({ blogs }) {
         setIsDialogOpen(false);
         destroy(deleteUrl);
     };
+
+    useEffect(() => {
+        if (flash.message.success) {
+            toast.success(flash.message.success);
+        }
+        if (flash.message.error) {
+            toast.error(flash.message.error);
+        }
+    }), [flash];
 
     // Filter blogs by title based on the search term
     const filteredBlogs = blogs.filter(blog =>
@@ -154,6 +165,7 @@ export default function Index({ blogs }) {
                 onClose={() => setIsDialogOpen(false)}
                 onConfirm={handleConfirmDelete}
             />
+            <ToastContainer />
         </AuthenticatedLayout>
     );
 }

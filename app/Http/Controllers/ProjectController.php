@@ -57,7 +57,7 @@ class ProjectController extends Controller
         // return Inertia::render('Projects/Index', [
         //     'success' => 'Project created successfully.',
         // ]);
-        // return back()->with('success', 'Project created successfully.');
+        return redirect()-> route('projects.index')->with(['success'=> 'Project created successfully.']);
     }
 
 
@@ -115,7 +115,7 @@ class ProjectController extends Controller
         }
 
         // Redirect back to the project listing with a success message
-        return redirect()->route('projects.index')->with('success', 'project updated successfully.');
+        return redirect()->route('projects.index')->with(['success'=> 'Project updated successfully.']);
     }
 
     /**
@@ -124,6 +124,6 @@ class ProjectController extends Controller
     public function destroy(Projects $project)
     {
         $project->delete();
-        return redirect()->route('projects.index')->with('success', 'project deleted successfully.');
+        return redirect()->route('projects.index')->with(['success'=> 'Project deleted successfully.']);
     }
 }

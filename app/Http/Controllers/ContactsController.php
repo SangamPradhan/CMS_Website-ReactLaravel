@@ -48,7 +48,7 @@ class ContactsController extends Controller
         ]);
 
         // Redirect back with a success message
-        return redirect()->back()->with('success', 'Your message has been sent successfully! ');
+        return redirect()->back()->with(['success' => 'Your message has been sent successfully! ']);
     }
 
     /**

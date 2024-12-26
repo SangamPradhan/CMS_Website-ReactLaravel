@@ -7,12 +7,12 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Head, Link, useForm } from '@inertiajs/react';
-import { useState } from 'react';
-import { ToastContainer, toast } from 'react-toastify';
+import { useEffect, useState } from 'react';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 
-export default function Index({ events }) {
+export default function Index({ events, flash }) {
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [deleteUrl, setDeleteUrl] = useState('');
     const { delete: destroy } = useForm();
@@ -30,13 +30,17 @@ export default function Index({ events }) {
 
     const handleConfirmDelete = () => {
         setIsDialogOpen(false);
-        destroy(deleteUrl, {
-            onSuccess: () => {
-                // Show success toast after deletion
-                toast.success('Event deleted successfully!');
-            }
-        });
+        destroy(deleteUrl);
     };
+
+    useEffect(() => {
+        if (flash.message.success) {
+            toast.success(flash.message.success);
+        }
+        if (flash.message.error) {
+            toast.error(flash.message.error);
+        }
+    }, [flash]);
 
     const handleSearchChange = event => {
         setSearchTerm(event.target.value);

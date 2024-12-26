@@ -56,7 +56,7 @@ class HomeController extends Controller
         ]);
 
         // Redirect back with a success message
-        return redirect()->back()->with('success', 'Your message has been sent successfully! ');
+        return redirect()->back()->with(['success' => 'Your message has been sent successfully! ']);
     }
 
     public function aboutus()
@@ -83,5 +83,30 @@ class HomeController extends Controller
         return Inertia::render('HomeProjects', [
             'projects' => $projects,
         ]);
+    }
+
+    public function addprojectreview(Request $request)
+    {
+        // Validate the incoming request data
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'project_review' => 'required|string|max:1000',
+            'rating' => 'required|string|max:255',
+            'project_id' => 'required|string|max:255',
+
+        ]);
+
+        // Create a new contact record in the database
+        Projects::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'project_review' => $request->project_review,
+            'rating' => $request->rating,
+            'project_id' => $request->project_id,
+        ]);
+
+        // Redirect back with a success message
+        return redirect()->back()->with(['success' => 'Your message has been sent successfully! ']);
     }
 }

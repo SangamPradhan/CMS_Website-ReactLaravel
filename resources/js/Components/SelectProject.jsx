@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { FaStar } from "react-icons/fa6";
 import { RiCloseLargeLine } from "react-icons/ri";
 
 const SelectProject = ({ project, onClose, reviews = [] }) => {
@@ -13,6 +14,20 @@ const SelectProject = ({ project, onClose, reviews = [] }) => {
     const [activeTab, setActiveTab] = useState('reviews');
     const [hovered, setHovered] = useState(0);
     const [data, setData] = useState({ rating: 0 });
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        post(route('projects.review.store'), {
+            onSuccess: () => {
+                reset();
+                setActiveTab('reviews'); // Redirect to reviews tab after submission
+                alert('Review submitted successfully!');
+            },
+            onError: () => {
+                alert('Failed to submit the review. Please try again.');
+            }
+        });
+    };
 
     if (!project) return null;
 
@@ -30,6 +45,7 @@ const SelectProject = ({ project, onClose, reviews = [] }) => {
                 >
                     X
                 </button> */}
+
                 <RiCloseLargeLine
                     onClick={(e) => {
                         e.preventDefault();
@@ -98,7 +114,7 @@ const SelectProject = ({ project, onClose, reviews = [] }) => {
                     )}
 
                     {activeTab === 'add-review' && (
-                        <form className="mt-4">
+                        <form onSubmit={handleSubmit} className="mt-4">
                             <div className="mb-4">
                                 <label className="block mb-2 font-semibold text-gray-700">Name</label>
                                 <input
@@ -130,6 +146,7 @@ const SelectProject = ({ project, onClose, reviews = [] }) => {
                                 <label htmlFor="rating" className="block mb-2 font-medium text-gray-700">
                                     Ratings
                                 </label>
+
                                 <div className="flex items-center space-x-1">
                                     {[1, 2, 3, 4, 5].map((star) => (
                                         <svg
@@ -168,3 +185,11 @@ const SelectProject = ({ project, onClose, reviews = [] }) => {
 };
 
 export default SelectProject;
+
+
+{/* <h3 className="font-bold text-2xl text-gray-800">{project.title}</h3>
+                <p className="mt-2 text-orange-500 text-sm">{project.subtitle}</p>
+                <p className="mt-4 text-base text-gray-700 leading-relaxed">{project.description}</p>
+                <p className="mt-4 text-gray-500 text-sm">Published Date: {project.date}</p>
+                <div className="flex justify-around w-full text-center">
+                */}

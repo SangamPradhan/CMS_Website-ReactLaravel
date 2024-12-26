@@ -65,7 +65,7 @@ class EventsController extends Controller
         ]);
 
         // Redirect with success message
-        return redirect()->route('event.index')->with('success', 'Event created successfully.');
+        return redirect()->route('event.index')->with(['success'=> 'Event created successfully.']);
     }
 
 
@@ -126,7 +126,7 @@ class EventsController extends Controller
 
 
         // Redirect back to the event listing with a success message
-        return redirect()->route('event.index')->with('success', 'Event updated successfully.');
+        return redirect()-> route('event.index')->with(['success'=> 'Event updated successfully.']);
     }
 
     /**
@@ -135,6 +135,6 @@ class EventsController extends Controller
     public function destroy(Events $event)
     {
         $event->delete();
-        return redirect()->route('event.index')->with('success', 'Event deleted successfully.');
+        return redirect()->route('event.index')->with(['success'=> 'Event deleted successfully.']);
     }
 }

@@ -52,7 +52,7 @@ class GalleriesController extends Controller
         // Store the data in the database
         Galleries::create($request->all());
         // Return a response, such as redirecting the user back to the projects listing page
-        return redirect()->route('gallery.index')->with('success', 'Gallery created successfully.');
+        return redirect()-> route('gallery.index')->with(['success'=> 'Project created successfully.']);
     }
 
     /**
@@ -89,6 +89,6 @@ class GalleriesController extends Controller
     public function destroy(Galleries $gallery)
     {
         $gallery->delete();
-        return redirect()->route('gallery.index')->with('success', 'Gallery deleted successfully.');
+        return redirect()-> route('gallery.index')->with(['success'=> 'Gallery deleted successfully.']);
     }
 }
