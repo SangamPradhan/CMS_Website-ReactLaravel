@@ -1,4 +1,3 @@
-import React from "react";
 import { FaFacebook, FaInstagram, FaLinkedin } from "react-icons/fa";
 
 
@@ -54,12 +53,12 @@ const ResourcesLinks = [
 ];
 const Footer = () => {
     return (
-        <div className="bg-dark text-dark">
-            <section className="container py-10 ml-10" >
-                <div className=" grid md:grid-cols-3 py-5">
+        <div className="bg-gray-100 text-dark">
+            <section className="ml-10 py-10 container" >
+                <div className="grid md:grid-cols-3 py-5">
                     {/* company Details */}
-                    <div className=" py-8 px-4 ">
-                        <h1 className="sm:text-3xl text-xl font-bold sm:text-left text-justify mb-3 flex items-center gap-3">
+                    <div className="px-4 py-8">
+                        <h1 className="flex items-center gap-3 mb-3 font-bold text-justify text-xl sm:text-3xl sm:text-left">
                             AI Solution
                         </h1>
                         <p className="text-sm">
@@ -82,17 +81,17 @@ const Footer = () => {
                         </div>
                     </div>
                     {/* Links */}
-                    <div className="grid grid-cols-2 sm:grid-cols-3 col-span-2 md:pl-10 ">
+                    <div className="grid grid-cols-2 sm:grid-cols-3 col-span-2 md:pl-10">
                         <div className="">
-                            <div className="py-8 px-4 ">
-                                <h1 className="sm:text-xl text-xl font-bold sm:text-left text-justify mb-3">
+                            <div className="px-4 py-8">
+                                <h1 className="mb-3 font-bold text-justify text-xl sm:text-xl sm:text-left">
                                     Company
                                 </h1>
                                 <ul className={`flex flex-col gap-3`}>
                                     {FooterLinks.map((link) => (
                                         <li
                                             key={link.title}
-                                            className="cursor-pointer hover:translate-x-1 duration-300 hover:!text-primary space-x-1 text-gray-400 "
+                                            className="space-x-1 text-gray-400 hover:!text-primary hover:translate-x-1 duration-300 cursor-pointer"
                                         >
                                             <span>{link.title}</span>
                                         </li>
@@ -101,15 +100,15 @@ const Footer = () => {
                             </div>
                         </div>
                         <div className="">
-                            <div className="py-8 px-4 ">
-                                <h1 className="sm:text-xl text-xl font-bold sm:text-left text-justify mb-3">
+                            <div className="px-4 py-8">
+                                <h1 className="mb-3 font-bold text-justify text-xl sm:text-xl sm:text-left">
                                     Help
                                 </h1>
                                 <ul className="flex flex-col gap-3">
                                     {HelpLinks.map((link) => (
                                         <li
                                             key={link.title}
-                                            className="cursor-pointer hover:translate-x-1 duration-300 hover:!text-primary space-x-1 text-gray-400 "
+                                            className="space-x-1 text-gray-400 hover:!text-primary hover:translate-x-1 duration-300 cursor-pointer"
                                         >
                                             <span>{link.title}</span>
                                         </li>
@@ -118,15 +117,15 @@ const Footer = () => {
                             </div>
                         </div>
                         <div className="">
-                            <div className="py-8 px-4 ">
-                                <h1 className="sm:text-xl text-xl font-bold sm:text-left text-justify mb-3">
+                            <div className="px-4 py-8">
+                                <h1 className="mb-3 font-bold text-justify text-xl sm:text-xl sm:text-left">
                                     Resources
                                 </h1>
                                 <ul className="flex flex-col gap-3">
                                     {ResourcesLinks.map((link) => (
                                         <li
                                             key={link.title}
-                                            className="cursor-pointer hover:translate-x-1 duration-300 hover:!text-primary space-x-1 text-gray-400 "
+                                            className="space-x-1 text-gray-400 hover:!text-primary hover:translate-x-1 duration-300 cursor-pointer"
                                         >
                                             <span>{link.title}</span>
                                         </li>

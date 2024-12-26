@@ -129,21 +129,25 @@ const Create = () => {
                     </div>
 
                     {/* Short Tips */}
+                    {/* Short Tips */}
                     <div>
                         <label htmlFor="short_tips" className="block mb-2 font-medium text-gray-700">
-                            Short Tips
+                            Project Type
                         </label>
-                        <input
-                            type="text"
+                        <select
                             id="short_tips"
                             name="short_tips"
                             value={data.short_tips}
                             onChange={(e) => setData('short_tips', e.target.value)}
                             className="border-gray-300 focus:border-indigo-500 shadow-sm rounded-md focus:ring-indigo-500 w-full"
-                            placeholder="Enter any short tips for the event"
-                        />
+                        >
+                            <option value="">Select Project Type</option>
+                            <option value="Past Projects">Past Projects</option>
+                            <option value="Upcoming Projects">Upcoming Projects</option>
+                        </select>
                         {errors.short_tips && <div className="text-red-500 text-sm">{errors.short_tips}</div>}
                     </div>
+
 
                     {/* Photo Upload */}
                     <div>

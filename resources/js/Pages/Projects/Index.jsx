@@ -7,12 +7,12 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Head, Link, useForm } from '@inertiajs/react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 
-export default function Index({ projects }) {
+export default function Index({ projects, success }) {
     const [searchTerm, setSearchTerm] = useState('');
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [deleteUrl, setDeleteUrl] = useState('');
@@ -23,9 +23,16 @@ export default function Index({ projects }) {
         setIsDialogOpen(true);
     };
 
-    if (route().current('projects.index') && route().has('success')) {
-        toast.success(route().success);
-    }
+    useEffect(() => {
+        // Show toast notification if success message is available
+        if (success) {
+            toast.success(success);  // Show success toast
+        }
+    }, [success]);
+
+    // if (route().current('projects.index') && route().has('success')) {
+    //     toast.success(route().success);
+    // }
 
     const handleConfirmDelete = () => {
         setIsDialogOpen(false);

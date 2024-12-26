@@ -65,7 +65,7 @@ class EventsController extends Controller
         ]);
 
         // Redirect with success message
-        return redirect()->route('blogs.index')->with('success', 'Event created successfully.');
+        return redirect()->route('event.index')->with('success', 'Event created successfully.');
     }
 
 

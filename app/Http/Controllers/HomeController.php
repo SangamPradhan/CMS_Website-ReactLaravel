@@ -71,7 +71,7 @@ class HomeController extends Controller
 
     public function homeevent()
     {
-        $events = Events::all();
+        $events = Events::orderBy('date', 'desc')->paginate(5);
         return Inertia::render('HomeEvents', [
             'events' => $events,
         ]);

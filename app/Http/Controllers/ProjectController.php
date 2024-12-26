@@ -32,7 +32,7 @@ class ProjectController extends Controller
             'projects' => $projects,
         ]);
     }
-    // Store the project data
+    // // Store the project data
     public function store(Request $request)
     {
         $request->validate([
@@ -54,8 +54,13 @@ class ProjectController extends Controller
             'date' => $request->date,
         ]);
 
-        return redirect()->route('projects.index')->with('success', 'Project created successfully.');
+        // return Inertia::render('Projects/Index', [
+        //     'success' => 'Project created successfully.',
+        // ]);
+        // return back()->with('success', 'Project created successfully.');
     }
+
+
 
     /**
      * Display the specified resource.
