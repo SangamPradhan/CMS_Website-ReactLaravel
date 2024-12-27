@@ -4,7 +4,7 @@ const BlogCard = ({ blog }) => {
     return (
         <div className="dark:text-white group">
             {/* Container for the image with fixed size */}
-            <div className="w-full h-60 overflow-hidden"> 
+            <div className="w-full h-96 overflow-hidden"> 
                 <img
                     src={`/storage/${blog.photo}`} // Adjust the image path as per your setup
                     alt={blog.title}

@@ -1,8 +1,11 @@
-import { useEffect, useState } from "react";
+import { useForm } from '@inertiajs/react';
+import { useEffect, useRef, useState } from "react";
 import { FaStar } from "react-icons/fa6";
 import { RiCloseLargeLine } from "react-icons/ri";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-const SelectProject = ({ project, onClose, reviews = [] }) => {
+const SelectProject = ({ project, onClose, reviews = [], flash }) => {
 
     useEffect(() => {
         document.body.style.overflow = project ? "hidden" : "auto";
@@ -13,18 +16,47 @@ const SelectProject = ({ project, onClose, reviews = [] }) => {
 
     const [activeTab, setActiveTab] = useState('reviews');
     const [hovered, setHovered] = useState(0);
-    const [data, setData] = useState({ rating: 0 });
+    const [loading, setLoading] = useState(false);
+    const modalRef = useRef(null);
+
+    useEffect(() => {
+        if (project) {
+            modalRef.current?.focus();
+        }
+    }, [project]);
+
+    useEffect(() => {
+        if (flash?.success) {
+            toast.success(flash.success);
+        }
+        if (flash?.error) {
+            toast.error(flash.error);
+        }
+    }, [flash]);
+
+    const { data, setData, post, errors, reset } = useForm({
+        name: '',
+        project_review: '',
+        rating: 0,  // Set a default value for rating to avoid undefined
+        email: '',
+        project_id: project?.id || '',
+    });
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        post(route('projects.review.store'), {
+        setLoading(true);
+        post(route('projects.addprojectreview'), {
+            preserveScroll: true,
             onSuccess: () => {
                 reset();
-                setActiveTab('reviews'); // Redirect to reviews tab after submission
-                alert('Review submitted successfully!');
+                setActiveTab('reviews');
+                toast.success('Review submitted successfully!');
             },
             onError: () => {
-                alert('Failed to submit the review. Please try again.');
+                toast.error('Failed to submit the review. Please try again.');
+            },
+            onFinish: () => {
+                setLoading(false);
             }
         });
     };
@@ -33,24 +65,16 @@ const SelectProject = ({ project, onClose, reviews = [] }) => {
 
     return (
         <div className="z-50 fixed inset-0 flex justify-center items-center bg-black bg-opacity-50">
-            <div className="relative bg-white shadow-lg p-6 rounded-lg w-11/12 md:w-3/4 lg:w-2/3 max-h-[90vh] overflow-y-auto">
-                {/* <button
-                    onClick={(e) => {
-                        e.preventDefault();
-                        setActiveTab('reviews');
-                        setData({ rating: 0 });
-                        onClose();
-                    }}
-                    className="top-2 right-2 absolute font-semibold text-gray-700 text-xl"
-                >
-                    X
-                </button> */}
-
+            <div
+                ref={modalRef}
+                tabIndex="-1"
+                className="relative bg-white shadow-lg p-6 rounded-lg w-11/12 md:w-3/4 lg:w-2/3 max-h-[90vh] overflow-y-auto focus:outline-none"
+            >
                 <RiCloseLargeLine
                     onClick={(e) => {
                         e.preventDefault();
                         setActiveTab('reviews');
-                        setData({ rating: 0 });
+                        setData({ rating: 0, project_review: "", name: "", email: "" });  // Reset form data on close
                         onClose();
                     }}
                     className="top-2 right-2 absolute font-semibold text-gray-700 text-xl"
@@ -121,27 +145,39 @@ const SelectProject = ({ project, onClose, reviews = [] }) => {
                                     type="text"
                                     className="border-gray-300 p-2 border rounded-md w-full"
                                     placeholder="Your name"
+                                    value={data.name || ''}  // Default value to avoid uncontrolled input
+                                    onChange={(e) => setData('name', e.target.value)} // Update the data on change
                                     required
                                 />
+                                {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
                             </div>
+
                             <div className="mb-4">
                                 <label className="block mb-2 font-semibold text-gray-700">Email</label>
                                 <input
                                     type="email"
                                     className="border-gray-300 p-2 border rounded-md w-full"
                                     placeholder="Your email"
+                                    value={data.email || ''}  // Default value to avoid uncontrolled input
+                                    onChange={(e) => setData('email', e.target.value)} // Update the data on change
                                     required
                                 />
+                                {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
                             </div>
+
                             <div className="mb-4">
                                 <label className="block mb-2 font-semibold text-gray-700">Comment</label>
                                 <textarea
                                     className="border-gray-300 p-2 border rounded-md w-full"
                                     placeholder="Your review"
                                     rows="4"
+                                    value={data.project_review || ''}  // Default value to avoid uncontrolled input
+                                    onChange={(e) => setData('project_review', e.target.value)} // Update the data on change
                                     required
                                 ></textarea>
+                                {errors.project_review && <p className="text-red-500 text-sm">{errors.project_review}</p>}
                             </div>
+
                             <div>
                                 <label htmlFor="rating" className="block mb-2 font-medium text-gray-700">
                                     Ratings
@@ -159,7 +195,7 @@ const SelectProject = ({ project, onClose, reviews = [] }) => {
                                             className="w-6 h-6 text-yellow-400 cursor-pointer"
                                             onMouseEnter={() => setHovered(star)}
                                             onMouseLeave={() => setHovered(0)}
-                                            onClick={() => setData(prev => ({ ...prev, rating: star }))}
+                                            onClick={() => setData('rating', star)}  // Update the rating when clicked
                                         >
                                             <path
                                                 strokeLinecap="round"
@@ -169,12 +205,17 @@ const SelectProject = ({ project, onClose, reviews = [] }) => {
                                         </svg>
                                     ))}
                                 </div>
+
+                                {errors.rating && (
+                                    <p className="text-red-500 text-sm">{errors.rating}</p>
+                                )}
                             </div>
+
                             <button
                                 type="submit"
                                 className="bg-blue-500 mt-4 px-4 py-2 rounded-md text-white"
                             >
-                                Submit Review
+                                Submit {/* {loading ? 'Submitting...' : 'Submit Review'} */}
                             </button>
                         </form>
                     )}
@@ -187,9 +228,78 @@ const SelectProject = ({ project, onClose, reviews = [] }) => {
 export default SelectProject;
 
 
+
+
+
+
 {/* <h3 className="font-bold text-2xl text-gray-800">{project.title}</h3>
                 <p className="mt-2 text-orange-500 text-sm">{project.subtitle}</p>
                 <p className="mt-4 text-base text-gray-700 leading-relaxed">{project.description}</p>
                 <p className="mt-4 text-gray-500 text-sm">Published Date: {project.date}</p>
                 <div className="flex justify-around w-full text-center">
                 */}
+
+// const { data, setData, post, processing, reset } = useForm({
+//     rating: "",
+//     project_review: "",
+//     name: "",
+//     email: "",
+// });
+
+// <div className="mb-4">
+//                 <label className="block mb-2 font-semibold text-gray-700">Name</label>
+//                 <input
+//                     type="text"
+//                     className="border-gray-300 p-2 border rounded-md w-full"
+//                     placeholder="Your name"
+//                     required
+//                 />
+//             </div>
+//             <div className="mb-4">
+//                 <label className="block mb-2 font-semibold text-gray-700">Email</label>
+//                 <input
+//                     type="email"
+//                     className="border-gray-300 p-2 border rounded-md w-full"
+//                     placeholder="Your email"
+//                     required
+//                 />
+//             </div>
+//             <div className="mb-4">
+//                 <label className="block mb-2 font-semibold text-gray-700">Comment</label>
+//                 <textarea
+//                     className="border-gray-300 p-2 border rounded-md w-full"
+//                     placeholder="Your review"
+//                     rows="4"
+//                     required
+//                     onChange={(e) => setData({ ...data, project_review: e.target.value })}
+//                 ></textarea>
+//             </div>
+//             <div>
+//                 <label htmlFor="rating" className="block mb-2 font-medium text-gray-700">
+//                     Ratings
+//                 </label>
+
+//                 <div className="flex items-center space-x-1">
+//                     {[1, 2, 3, 4, 5].map((star) => (
+//                         <svg
+//                             key={star}
+//                             xmlns="http://www.w3.org/2000/svg"
+//                             fill={star <= (hovered || data.rating) ? "gold" : "none"}
+//                             viewBox="0 0 24 24"
+//                             strokeWidth={2}
+//                             stroke="currentColor"
+//                             className="w-6 h-6 text-yellow-400 cursor-pointer"
+//                             onMouseEnter={() => setHovered(star)}
+//                             onMouseLeave={() => setHovered(0)}
+//                             onClick={() => setData(prev => ({ ...prev, rating: star }))}
+//                         >
+//                             <path
+//                                 strokeLinecap="round"
+//                                 strokeLinejoin="round"
+//                                 d="M12 17.27l5.18 3.03-1.64-6.03 4.46-3.89-6.07-.26L12 2 9.07 6.11l-6.07.26 4.46 3.89-1.64 6.03L12 17.27z"
+//                             />
+//                         </svg>
+//                     ))}
+//                 </div>
+//             </div>
+

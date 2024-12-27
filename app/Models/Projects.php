@@ -20,4 +20,11 @@ class Projects extends Model
         'date',
         'image',
     ];
+
+    // Define the relationship
+    public function reviews()
+    {
+        return $this->hasMany(ProjectsReview::class, 'project_id');
+    }
+
 }

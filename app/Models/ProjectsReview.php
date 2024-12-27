@@ -17,6 +17,11 @@ class ProjectsReview extends Model
         'project_id',
         'project_review',
         'rating',
-
     ];
+
+    // Define the relationship
+    public function project()
+    {
+        return $this->belongsTo(Projects::class, 'project_id');
+    }
 }

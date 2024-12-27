@@ -37,10 +37,11 @@ const HomeEvents = ({ events }) => {
                                         <span
                                             className="bg-blue-600 px-3 py-1 rounded-full text-sm text-white"
                                             style={{
-                                                maxWidth: "15%",
+                                                maxWidth: "20%",
                                                 whiteSpace: "nowrap",
                                                 overflow: "hidden",
-                                                textOverflow: "ellipsis",
+                                                textAlign: "center",
+                                                textOverflow: "ellipsis",   
                                             }}
                                         >
                                             {event.short_tips}

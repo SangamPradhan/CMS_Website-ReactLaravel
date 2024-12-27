@@ -6,6 +6,7 @@ use App\Models\Blogs;
 use App\Models\Contacts;
 use App\Models\Events;
 use App\Models\Projects;
+use App\Models\ProjectsReview;
 use App\Models\Testimonials;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -37,6 +38,7 @@ class HomeController extends Controller
         return Inertia::render('ContactPage');
     }
 
+    //saving data from the contact us form
     public function store(Request $request)
     {
         // Validate the incoming request data
@@ -92,13 +94,13 @@ class HomeController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255',
             'project_review' => 'required|string|max:1000',
-            'rating' => 'required|string|max:255',
-            'project_id' => 'required|string|max:255',
+            'rating' => 'required|integer|between:1,5',
+            'project_id' => 'required|exists:projects,id',
 
         ]);
 
         // Create a new contact record in the database
-        Projects::create([
+        ProjectsReview::create([
             'name' => $request->name,
             'email' => $request->email,
             'project_review' => $request->project_review,

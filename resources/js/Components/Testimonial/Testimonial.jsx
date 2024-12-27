@@ -5,19 +5,22 @@ import 'slick-carousel/slick/slick-theme.css';
 import 'slick-carousel/slick/slick.css';
 
 const Testimonial = ({ testimonials }) => {
-    var settings = {
+    const settings = {
         dots: true,
         arrows: false,
-        infinite: false,
+        infinite: true, // Ensures the carousel loops infinitely
         speed: 600,
         slidesToShow: 1,
         slidesToScroll: 1,
-        autoplay: true,
-        autoplaySpeed: 3000,
+        autoplay: true, // Enables automatic sliding
+        autoplaySpeed: 4000, // Set to 3000ms (3 seconds)
         cssEase: "linear",
-        pauseOnHover: true,
-        pauseOnFocus: true,
+        pauseOnHover: true, // Pauses when hovering over the carousel
+        pauseOnFocus: true, // Pauses when the carousel is focused
+        swipeToSlide: true, // Allows users to swipe between slides
     };
+    
+    
 
     const renderStars = (rating) => {
         return Array.from({ length: 5 }, (_, index) => (
