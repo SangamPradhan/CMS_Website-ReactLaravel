@@ -54,7 +54,7 @@ export default function AuthenticatedLayout({ header, children }) {
                     <NavItem label="Blogs" href={route('blogs.index')} isActive={route().current('blogs.index')} />
                     <NavItem label="Testimonials" href={route('testimonials.index')} isActive={route().current('testimonials.index')} />
                     <NavItem label="Gallery" href={route('gallery.index')} isActive={route().current('gallery.index')} />
-                    {/* <NavItem label="User Inquiries" href={route('inquiries.index')} isActive={route().current('inquiries.index')} /> */}
+                    <NavItem label="User Inquiries" href={route('contactus.index')} isActive={route().current('contactus.index')} />
                 </nav>
             </div>
 

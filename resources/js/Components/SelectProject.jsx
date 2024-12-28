@@ -5,8 +5,9 @@ import { RiCloseLargeLine } from "react-icons/ri";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const SelectProject = ({ project, onClose, reviews = [], flash }) => {
+const SelectProject = ({ project, onClose, flash }) => {
 
+    console.log(project);
     useEffect(() => {
         document.body.style.overflow = project ? "hidden" : "auto";
         return () => {
@@ -39,17 +40,52 @@ const SelectProject = ({ project, onClose, reviews = [], flash }) => {
         project_review: '',
         rating: 0,  // Set a default value for rating to avoid undefined
         email: '',
-        project_id: project?.id || '',
+        project_id: project?.id ? String(project.id) : '', // Fallback to an empty string if undefined
     });
+
+    // Update project_id when project changes
+    useEffect(() => {
+        if (project?.id) {
+            setData('project_id', String(project.id));
+        }
+    }, [project]);
+
+    // const handleSubmit = (e) => {
+    //     e.preventDefault();
+    //     setLoading(true);
+    //     post(route('addprojectreview'), {
+
+    //         // data,
+    //         // project_id: project.id,
+    //         preserveScroll: true,
+    //         onSuccess: () => {
+    //             reset();
+    //             setActiveTab('reviews');
+    //             toast.success('Review submitted successfully!');
+    //         },
+    //         onError: () => {
+    //             toast.error('Failed to submit the review. Please try again.');
+    //         },
+    //         onFinish: () => {
+    //             setLoading(false);
+    //         }
+    //     });
+    // };
 
     const handleSubmit = (e) => {
         e.preventDefault();
         setLoading(true);
-        post(route('projects.addprojectreview'), {
+
+        // console.log(data);
+        post(route('addprojectreview'), {
+            name: data.name,
+            email: data.email,
+            project_review: data.project_review,
+            rating: data.rating,
+            project_id: data.project_id, // Include the project ID
             preserveScroll: true,
             onSuccess: () => {
                 reset();
-                setActiveTab('reviews');
                 toast.success('Review submitted successfully!');
             },
             onError: () => {
@@ -57,7 +93,7 @@ const SelectProject = ({ project, onClose, reviews = [], flash }) => {
             },
             onFinish: () => {
                 setLoading(false);
-            }
+            },
         });
     };
 
@@ -112,22 +148,35 @@ const SelectProject = ({ project, onClose, reviews = [], flash }) => {
 
                     {activeTab === 'reviews' && (
                         <div className="mt-4">
-                            {reviews.length > 0 ? (
-                                <ul className="space-y-4">
-                                    {reviews.map((review, index) => (
-                                        <li key={index} className="bg-gray-100 p-4 rounded-lg">
-                                            <div className="flex justify-between items-center">
-                                                <h5 className="font-semibold text-gray-800">{review.name}</h5>
-                                                <div className="flex items-center">
-                                                    {Array.from({ length: review.stars }).map((_, i) => (
-                                                        <FaStar key={i} className="text-yellow-500" />
-                                                    ))}
-                                                    {Array.from({ length: 5 - review.stars }).map((_, i) => (
-                                                        <FaStar key={i} className="text-gray-300" />
-                                                    ))}
+                            {project.reviews.length > 0 ? (
+                                <ul className="space-y-6">
+                                    {project.reviews.map((review, index) => (
+                                        <li key={index} className="bg-white shadow-sm p-4 border rounded-lg">
+                                            <div className="flex items-start">
+                                                {/* Name and Email */}
+                                                <div className="flex-1">
+                                                    <h5 className="font-bold text-gray-800">{review.name}</h5>
+                                                    <p className="text-gray-500 text-sm">{review.email}</p>
+                                                </div>
+
+                                                {/* Ratings and Date */}
+                                                <div className="flex flex-col items-end">
+                                                    <div className="flex">
+                                                        {Array.from({ length: review.rating }).map((_, i) => (
+                                                            <FaStar key={i} className="text-yellow-500" />
+                                                        ))}
+                                                        {Array.from({ length: 5 - review.rating }).map((_, i) => (
+                                                            <FaStar key={i} className="text-gray-300" />
+                                                        ))}
+                                                    </div>
+                                                    <p className="mt-1 text-gray-400 text-sm">
+                                                        {new Date(review.created_at).toLocaleDateString()}
+                                                    </p>
                                                 </div>
                                             </div>
-                                            <p className="mt-2 text-gray-600">{review.comment}</p>
+
+                                            {/* Review Text */}
+                                            <p className="mt-3 text-gray-600 leading-relaxed">{review.project_review}</p>
                                         </li>
                                     ))}
                                 </ul>
@@ -135,6 +184,7 @@ const SelectProject = ({ project, onClose, reviews = [], flash }) => {
                                 <p className="mt-4 text-gray-500">No reviews available for this project.</p>
                             )}
                         </div>
+
                     )}
 
                     {activeTab === 'add-review' && (
@@ -177,6 +227,18 @@ const SelectProject = ({ project, onClose, reviews = [], flash }) => {
                                 ></textarea>
                                 {errors.project_review && <p className="text-red-500 text-sm">{errors.project_review}</p>}
                             </div>
+
+                            {/* <div className="hidden mb-4">
+                                <label className="block mb-2 font-semibold text-gray-700">project id</label>
+                                <textarea
+                                    className="border-gray-300 p-2 border rounded-md w-full"
+                                    placeholder="Your review"
+                                    value={project?.id }  // Default value to avoid uncontrolled input
+                                    onChange={(e) => setData('project_id', e.target.value)} // Update the data on change
+                                    required
+                                ></textarea>
+                                {errors.project_review && <p className="text-red-500 text-sm">{errors.project_}</p>}
+                            </div> */}
 
                             <div>
                                 <label htmlFor="rating" className="block mb-2 font-medium text-gray-700">

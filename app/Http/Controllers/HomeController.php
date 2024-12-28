@@ -9,6 +9,7 @@ use App\Models\Projects;
 use App\Models\ProjectsReview;
 use App\Models\Testimonials;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
 class HomeController extends Controller
@@ -81,14 +82,37 @@ class HomeController extends Controller
 
     public function homeprojects()
     {
-        $projects = Projects::all();
+        // DB::enableQueryLog();
+
+        $projects = Projects::with('reviews')->get();
+        // dd(DB::getQueryLog());
+        // dd($queryLog);
+        // dd($projects);
         return Inertia::render('HomeProjects', [
             'projects' => $projects,
         ]);
     }
 
+    // public function homeprojects()
+    // {
+    //     // Fetch all project IDs
+    //     $projectIds = Projects::pluck('id'); // This retrieves all project IDs
+
+    //     // Fetch the projects along with their reviews based on the project IDs
+    //     $projects = Projects::with(['reviews' => function ($query) use ($projectIds) {
+    //         $query->whereIn('project_id', $projectIds); // Fetch reviews for only the listed projects
+    //     }])->whereIn('id', $projectIds)->get(); // Fetch all projects using the project IDs
+
+    //     // Return the data to the Inertia view
+    //     return Inertia::render('HomeProjects', [
+    //         'projects' => $projects,
+    //     ]);
+    // }
+
+
     public function addprojectreview(Request $request)
     {
+        // dd($request->all());
         // Validate the incoming request data
         $request->validate([
             'name' => 'required|string|max:255',
@@ -107,7 +131,6 @@ class HomeController extends Controller
             'rating' => $request->rating,
             'project_id' => $request->project_id,
         ]);
-
         // Redirect back with a success message
         return redirect()->back()->with(['success' => 'Your message has been sent successfully! ']);
     }

@@ -18,6 +18,14 @@ class ContactsController extends Controller
         return Inertia::render('ContactPage');
     }
 
+    public function index()
+    {
+        $contacts = Contacts::all();
+        return Inertia::render('ContactUs/Index', [
+            'contacts' => $contacts,
+        ]);
+    }
+
     /**
      * Show the form for creating a new resource.
      */
@@ -54,9 +62,23 @@ class ContactsController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Contacts $contacts)
+    // public function show(Contacts $contact)
+    // {
+    //     // $contacts = Contacts::findOrFail($id); // Fetch the contact by ID
+    //     // return inertia('ContactUs/Show', [
+    //     //     'contacts' => $contacts,
+    //     // ]);
+    //     dd($contact);
+    //     return Inertia::render('ContactUs/Show', ['contact' => $contact]);
+    // }
+
+    public function show($id)
     {
-        //
+        $contact = Contacts::findOrFail($id); // Manually fetching the contact by ID
+
+       // dd($contact); // This should show the contact data if it exists
+
+        return Inertia::render('ContactUs/Show', ['contact' => $contact]);
     }
 
     /**
@@ -78,8 +100,15 @@ class ContactsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Contacts $contacts)
+    public function destroy($id)
     {
-        //
+        $contact = Contacts::findOrFail($id); // Fetch the contact by ID
+        $contact->delete(); // Delete the contact
+        return redirect()->route('contactus.index')->with(['success' => 'Contact deleted successfully.']);
     }
+    // {
+    //     $contact->delete();
+    //     dd($contact);
+    //     return redirect()->route('contactus.index')->with(['success' => 'Review deleted successfully.']);
+    // }
 }
