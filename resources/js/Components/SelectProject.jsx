@@ -100,6 +100,7 @@ const SelectProject = ({ project, onClose, flash }) => {
     if (!project) return null;
 
     return (
+        <>
         <div className="z-50 fixed inset-0 flex justify-center items-center bg-black bg-opacity-50">
             <div
                 ref={modalRef}
@@ -113,9 +114,9 @@ const SelectProject = ({ project, onClose, flash }) => {
                         setData({ rating: 0, project_review: "", name: "", email: "" });  // Reset form data on close
                         onClose();
                     }}
-                    className="top-2 right-2 absolute font-semibold text-gray-700 text-xl"
-                    style={{ cursor: 'pointer' }}
+                    className="top-2 right-2 absolute font-semibold text-2xl text-gray-700 cursor-pointer"
                 />
+
 
                 <div className="mb-4">
                     <img
@@ -284,6 +285,7 @@ const SelectProject = ({ project, onClose, flash }) => {
                 </div>
             </div>
         </div>
+        </>
     );
 };
 

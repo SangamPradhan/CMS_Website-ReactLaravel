@@ -1,46 +1,61 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Link } from '@inertiajs/react';
-import BlogCard from "../../Components/Blogs/BlogCard";
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Head, Link } from '@inertiajs/react';
 
-const Show = ({ blog }) => {
+export default function Show({ blog }) {
     return (
-        <>
-            <AuthenticatedLayout
-                header={
-                    <div className="flex justify-between items-center">
-                        <h2 className="font-semibold text-gray-800 text-xl leading-tight">
-                            Blog Details
-                        </h2>
-                        <Link
-                            href={route('blogs.index')}
-                            className="bg-blue-600 hover:bg-gray-700 px-4 py-2 rounded-md text-white focus:outline-none"
-                        >
-                            Back
-                        </Link>
-                    </div>
-                }
-            >
-                <div className="bg-gray-100 dark:bg-gray-900 mx-auto py-10 pb-14 dark:text-white">
-                    <section data-aos="fade-up" className="ml-10 container">
-                        <h1 className="border-primary/50 my-8 py-2 pl-2 border-l-8 font-semibold text-3xl">
-                            {blog.title}
-                        </h1>
-                        <div className="gap-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-                            {/* Render BlogCard dynamically with the passed blog data */}
-                            <BlogCard
-                                id={blog.id}
-                                image={blog.image}
-                                title={blog.title}
-                                description={blog.short_description}
-                                author={blog.long_description}
-                                date={blog.date}
-                            />
-                        </div>
-                    </section>
-                </div>
-            </AuthenticatedLayout>
-        </>
-    );
-};
+        <AuthenticatedLayout
+            header={<h2 className="font-semibold text-gray-800 text-xl leading-tight">Blog Details</h2>}
+        >
+            <Head title="Blog Details" />
+            <div className="py-12">
+                <div className="mx-auto sm:px-6 lg:px-8 max-w-7xl">
+                    <div className="bg-white shadow-sm sm:rounded-lg overflow-hidden">
+                        <div className="p-6 text-gray-900">
+                            <div className="flex justify-between items-center">
+                                <h1 className="font-bold text-2xl">Blog: {blog.title}</h1>
+                                <Link
+                                    href={route('blogs.index')}
+                                    className="flex items-center bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-md text-white"
+                                >
+                                    <FontAwesomeIcon
+                                        icon={faArrowLeft}
+                                        className="mr-2"
+                                    />
+                                    Back to Blogs
+                                </Link>
+                            </div>
 
-export default Show;
+                            <div className="mt-4">
+                                <h3 className="font-semibold text-xl">Short Description</h3>
+                                <p className="text-gray-700">{blog.short_description}</p>
+                            </div>
+
+                            <div className="mt-4">
+                                <h3 className="font-semibold text-xl">Long Description</h3>
+                                <p className="text-gray-700">{blog.long_description}</p>
+                            </div>
+
+                            <div className="mt-4">
+                                <h3 className="font-semibold text-xl">Date</h3>
+                                <p className="text-gray-700">{blog.date}</p>
+                            </div>
+
+                            <div className="mt-4">
+                                <h3 className="font-semibold text-xl">Photo</h3>
+                                <div className="flex justify-center">
+                                    <img
+                                        src={`/storage/${blog.photo}`}
+                                        alt={blog.title}
+                                        className="shadow-md rounded-lg w-full max-w-md"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </AuthenticatedLayout>
+    );
+}

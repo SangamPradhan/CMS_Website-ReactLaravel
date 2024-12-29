@@ -1,6 +1,5 @@
 import Layout from "@/Layouts/layout";
 import { useState } from "react";
-import logo from '../../assets/brands/logo.svg';
 import insta1 from '../../assets/website/insta-post-1.png';
 import insta2 from '../../assets/website/insta-post-2.png';
 import insta3 from '../../assets/website/insta-post-3.png';
@@ -29,16 +28,10 @@ const Gallery = () => {
         <>
         <Layout/>
             {/* Dark Themed Section */}
-            <div className="bg-gray-950 p-6 text-center">
+            <div className="bg-white-100 p-6 text-center">
                 {/* Logo */}
-                <a href="#" className="block mb-4">
-                    <img
-                        src={logo}
-                        alt="logo"
-                        className="mx-auto"
-                        width={119}
-                        height={37}
-                    />
+                <a href="#" className="block mb-4 font-bold text-2xl text-black xl:text-2xl">
+                    Gallery
                 </a>
 
                 {/* Description */}

@@ -50,7 +50,12 @@ class GalleriesController extends Controller
         }
 
         // Store the data in the database
-        Galleries::create($request->all());
+        Galleries::create([
+            'title' => $request->title,
+            'date' => $request->date,
+            'photo' => $photoPath,
+            'video' => $request->video,
+        ]);
         // Return a response, such as redirecting the user back to the projects listing page
         return redirect()-> route('gallery.index')->with(['success'=> 'Project created successfully.']);
     }

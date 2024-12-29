@@ -62,7 +62,7 @@ class TestimonialsController extends Controller
     public function show(Testimonials $testimonial)
     {
         return Inertia::render('Testimonials/Show', [
-            'blog' => $testimonial,
+            'testimonial' => $testimonial,
         ]);
     }
 

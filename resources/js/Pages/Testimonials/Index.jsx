@@ -47,6 +47,12 @@ export default function Index({ testimonials, flash }) {
         testimonial.title.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
+    const truncateText = (text, maxLength) => {
+        if (text.length > maxLength) {
+            return text.substring(0, maxLength) + '...';
+        }
+    };
+
     return (
         <AuthenticatedLayout
             header={<h2 className="font-semibold text-gray-800 text-xl leading-tight">Testimonials from our Clients</h2>}
@@ -93,10 +99,10 @@ export default function Index({ testimonials, flash }) {
                                             <tr key={testimonial.id}>
                                                 <td className="px-4 py-2 border">{testimonial.id}</td>
                                                 <td className="px-4 py-2 border">{testimonial.title}</td>
-                                                <td className="px-4 py-2 border">{testimonial.description}</td>
+                                                <td className="px-4 py-2 border">{truncateText(testimonial.description, 40)}</td>
                                                 <td className="px-4 py-2 border">{testimonial.rating}</td>
                                                 <td className="px-4 py-2 border">{testimonial.date}</td>
-                                                <td className="px-4 py-2 border">{testimonial.photo}</td>
+                                                <td className="px-4 py-2 border">{truncateText(testimonial.photo, 20)}</td>
                                                 <td className="px-4 py-2 border">
                                                     <div className="flex space-x-2">
                                                         <Link

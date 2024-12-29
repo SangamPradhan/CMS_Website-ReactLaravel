@@ -2,7 +2,6 @@ import ConfirmationDialog from '@/Components/ConfirmationDialog';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import {
     faEye,
-    faPencilAlt,
     faTrashAlt
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -44,6 +43,17 @@ export default function Index({ galleries, flash }) {
     const handleSearchChange = event => {
         setSearchTerm(event.target.value);
     };
+
+    const truncateText = (text, maxLength) => {
+        if (!text) {
+            return 'N/A'; // Fallback text if `text` is null or undefined
+        }
+        if (text.length > maxLength) {
+            return text.substring(0, maxLength) + '...';
+        }
+        return text;
+    };
+
 
     return (
         <AuthenticatedLayout
@@ -91,17 +101,10 @@ export default function Index({ galleries, flash }) {
                                                 <td className="px-4 py-2 border">{gallery.id}</td>
                                                 <td className="px-4 py-2 border">{gallery.title}</td>
                                                 <td className="px-4 py-2 border">{gallery.date}</td>
-                                                <td className="px-4 py-2 border">{gallery.photo}</td>
-                                                <td className="px-4 py-2 border">{gallery.video}</td>
+                                                <td className="px-4 py-2 border">{truncateText(gallery.photo || '', 20)}</td>
+                                                <td className="px-4 py-2 border">{truncateText(gallery.video || '', 20)}</td>
                                                 <td className="px-4 py-2 border">
                                                     <div className="flex space-x-2">
-                                                        <Link href={route('gallery.edit', gallery.id)} className="bg-blue-100 hover:bg-blue-200 mr-2 px-4 py-2 rounded text-blue-600">
-                                                                <FontAwesomeIcon
-                                                                    icon={faPencilAlt}
-                                                                    className="mr-2"
-                                                                />
-                                                                Edit
-                                                        </Link>
 
                                                         <Link
                                                             href={route('gallery.show', gallery.id)}
@@ -146,7 +149,7 @@ export default function Index({ galleries, flash }) {
                 onConfirm={handleConfirmDelete}
             />
             <ToastContainer />
-            
+
         </AuthenticatedLayout>
     );
 }

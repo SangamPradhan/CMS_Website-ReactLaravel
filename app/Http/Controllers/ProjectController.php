@@ -67,7 +67,12 @@ class ProjectController extends Controller
      */
     public function show(Projects $project)
     {
-        //
+        $project = $project->load('reviews');
+
+        return Inertia::render('Projects/Show', [
+            'project' => $project,
+        ]);
+
     }
 
     /**

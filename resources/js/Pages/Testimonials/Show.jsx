@@ -1,107 +1,128 @@
-
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Link } from '@inertiajs/react';
-import Slider from 'react-slick';
-import 'slick-carousel/slick/slick-theme.css';
-import 'slick-carousel/slick/slick.css';
+import { useState } from 'react';
 
+export default function Show({ testimonial }) {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [modalImage, setModalImage] = useState('');
 
-
-const testimonialData = [
-    {
-        id: 1,
-        name: "David Calathan - Director of Design Operations, New York",
-        text: "The results have been incredible. With Power Digital, it feels like they’re in our trench, supporting and understanding us. They’re like a partner and mentor in helping us get where we want to be.",
-        img: "https://picsum.photos/101/101",
-    },
-    {
-        id: 1,
-        name: "David Calathan - Director of Design Operations, New York",
-        text: "The results have been incredible. With Power Digital, it feels like they’re in our trench, supporting and understanding us. They’re like a partner and mentor in helping us get where we want to be.",
-        img: "https://picsum.photos/102/102",
-    },
-    {
-        id: 1,
-        name: "Smith - Director of Operations, New York",
-        text: "The results have been incredible. With Power Digital, it feels like they’re in our trench, supporting and understanding us. They’re like a partner and mentor in helping us get where we want to be.",
-        img: "https://picsum.photos/103/103",
-    },
-];
-
-const Testimonial = () => {
-    var settings = {
-        dots: true,
-        arrows: false,
-        infinite: true,
-        speed: 600,
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        autoplay: false,
-        autoplaySpeed: 3000,
-        cssEase: "linear",
-        pauseOnHover: true,
-        pauseOnFocus: true,
+    // Function to open the modal with the image
+    const handleImageClick = (image) => {
+        setModalImage(image);
+        setIsModalOpen(true);
     };
+
+    // Function to close the modal
+    const closeModal = () => {
+        setIsModalOpen(false);
+        setModalImage('');
+    };
+
     return (
-        <>
-            <AuthenticatedLayout
-                header={
-                    <div className="flex justify-between items-center">
-                        <h2 className="font-semibold text-gray-800 text-xl leading-tight">
-                            Blog Details
-                        </h2>
-                    </div>
-                }
-            >
-                <div className="py-10">
-                    <div className="flex justify-between items-center mb-10">
-                        <h2 className="font-bold text-2xl text-blue-500">
-                            Testimonial from Client
-                        </h2>
-                        <Link
-                            href={route('testimonials.index')}
-                            className="bg-red-600 hover:bg-gray-700 px-4 py-2 rounded-md text-white focus:outline-none"
-                        >
-                            Cancel
-                        </Link>
-                    </div>
-                    <div className="container">
-                        {/* testimonial section */}
-                        <div
-                            data-aos="fade-up"
-                            className="gap-6 grid grid-cols-1 mx-auto max-w-screen-xl"
-                        >
-                            <Slider {...settings}>
-                                {testimonialData.map(({ id, name, text, img }) => {
-                                    return (
-                                        <div key={id} className="my-6">
-                                            {/* card */}
-                                            <div className="relative flex sm:flex-row flex-col gap-5 md:gap-14 dark:bg-gray-800 mx-4 p-4 rounded-xl">
-                                                <img
-                                                    src={img}
-                                                    alt=""
-                                                    className="block mx-auto w-full sm:w-[200px] h-[300px] object-cover"
-                                                />
-                                                <div className="space-y-4">
-                                                    <p className="xl:pr-40 text-black/80 text-gray-500 dark:text-white/80">
-                                                        “{text}”
-                                                    </p>
-                                                    <h1 className="font-bold text-xl">{name}</h1>
-                                                </div>
-                                                <p className="right-0 bottom-0 absolute font-serif text-[12rem] text-black/10">
-                                                    ,,
-                                                </p>
-                                            </div>
-                                        </div>
-                                    );
-                                })}
-                            </Slider>
+        <AuthenticatedLayout
+            header={
+                <h2 className="font-semibold text-gray-800 text-xl leading-tight">
+                    Testimonial Details
+                </h2>
+            }
+        >
+            <div className="py-12">
+                <div className="mx-auto sm:px-6 lg:px-8 max-w-7xl">
+                    <div className="bg-white shadow-sm sm:rounded-lg overflow-hidden">
+                        <div className="p-6 text-gray-900">
+                            <h1 className="mb-6 font-bold text-2xl">
+                                Testimonial Information
+                            </h1>
+
+                            <div className="gap-4 grid grid-cols-1 sm:grid-cols-2">
+                                {/* ID */}
+                                <div className="pb-2 border-b">
+                                    <h2 className="font-medium text-gray-700">
+                                        ID:
+                                    </h2>
+                                    <p className="text-gray-900">{testimonial?.id}</p>
+                                </div>
+
+                                {/* Title */}
+                                <div className="pb-2 border-b">
+                                    <h2 className="font-medium text-gray-700">
+                                        Title:
+                                    </h2>
+                                    <p className="text-gray-900">{testimonial.title}</p>
+                                </div>
+
+                                {/* Description */}
+                                <div className="pb-2 border-b">
+                                    <h2 className="font-medium text-gray-700">
+                                        Description:
+                                    </h2>
+                                    <p className="text-gray-900">{testimonial.description}</p>
+                                </div>
+
+                                {/* Rating */}
+                                <div className="pb-2 border-b">
+                                    <h2 className="font-medium text-gray-700">
+                                        Rating:
+                                    </h2>
+                                    <p className="text-gray-900">{testimonial.rating}</p>
+                                </div>
+
+                                {/* Date */}
+                                <div className="pb-2 border-b">
+                                    <h2 className="font-medium text-gray-700">
+                                        Date:
+                                    </h2>
+                                    <p className="text-gray-900">
+                                        {new Date(testimonial.created_at).toLocaleString()}
+                                    </p>
+                                </div>
+
+                                {/* Photo (Clickable Image) */}
+                                <div className="pb-2 border-b">
+                                    <h2 className="font-medium text-gray-700">
+                                        Photo:
+                                    </h2>
+                                    <p className="text-gray-900">
+                                        <button onClick={() => handleImageClick(testimonial.photo)}>
+                                            {testimonial.photo}
+                                        </button>
+                                    </p>
+                                </div>
+                            </div>
+
+                            {/* Actions */}
+                            <div className="flex space-x-4 mt-6">
+                                <Link
+                                    href={route('testimonials.index')}
+                                    className="bg-gray-500 hover:bg-gray-600 shadow px-4 py-2 rounded-md text-white"
+                                >
+                                    Back to List
+                                </Link>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </AuthenticatedLayout>
-        </>
-    );
-};
+            </div>
 
-export default Testimonial;
+            {/* Modal Popup */}
+            {isModalOpen && (
+                <div className="z-50 fixed inset-0 flex justify-center items-center bg-black bg-opacity-50">
+                    <div className="relative">
+                        <button
+                            onClick={closeModal}
+                            className="top-0 right-0 absolute bg-gray-700 p-2 rounded-full text-white"
+                        >
+                            X
+                        </button>
+                        <img
+                        // src={`/storage/${project.image}`}
+                            src={`/storage/${modalImage}`}
+                            alt="Testimonial Image"
+                            className="max-w-full max-h-screen object-contain"
+                        />
+                    </div>
+                </div>
+            )}
+        </AuthenticatedLayout>
+    );
+}
