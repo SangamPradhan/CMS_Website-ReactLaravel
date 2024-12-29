@@ -1,5 +1,6 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link, useForm } from '@inertiajs/react';
+import { useState } from 'react';
 
 export default function EditEvent({ event }) {
     const { data, setData, put, errors } = useForm({
@@ -12,15 +13,28 @@ export default function EditEvent({ event }) {
         photo: null,
     });
 
+    // State to hold image preview
+    const [imagePreview, setImagePreview] = useState(event.photo ? `/storage/${event.photo}` : null);
+
     // Handle text input change
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setData(name, value);
     };
 
-    // Handle file input change
+    // Handle file input change (Image upload)
     const handleFileChange = (e) => {
-        setData('photo', e.target.files[0]);
+        const file = e.target.files[0];
+        setData('photo', file);
+
+        // Create image preview
+        if (file) {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setImagePreview(reader.result);  // Set the preview image
+            };
+            reader.readAsDataURL(file);
+        }
     };
 
     // Handle form submission
@@ -37,7 +51,6 @@ export default function EditEvent({ event }) {
                     <h2 className="font-semibold text-gray-800 text-xl leading-tight">Edit This Event</h2>
                 </div>
             }
-
         >
             <Head title="Edit Event" />
 
@@ -131,6 +144,21 @@ export default function EditEvent({ event }) {
                             />
                             {errors.short_tips && <div className="mt-1 text-red-500 text-sm">{errors.short_tips}</div>}
                         </div>
+
+                        {/* Image Preview Section */}
+                        <div className="mb-7">
+                            <label htmlFor="current-photo" className="block mb-2 font-medium text-gray-700">Current Event Photo</label>
+                            {imagePreview && (
+                                <div className="mb-4">
+                                    <img src={imagePreview} alt="Event Photo Preview" className="w-32 h-32 object-cover" />
+                                </div>
+                            )}
+                            {!imagePreview && event.photo && (
+                                <p className="mt-1 text-gray-500 text-sm">No image preview available</p>
+                            )}
+                        </div>
+
+                        {/* Image Upload Section */}
                         <div className="mb-7">
                             <label htmlFor="photo" className="block mb-1 font-medium text-gray-700 text-sm">Event Photo</label>
                             <div className="border-2 border-gray-300 p-4 hover:border-blue-500 border-dashed rounded-md text-center transition duration-300 cursor-pointer">
@@ -140,6 +168,7 @@ export default function EditEvent({ event }) {
                                     name="photo"
                                     onChange={handleFileChange}
                                     className="hidden"
+                                    accept="image/*"
                                 />
                                 <label htmlFor="photo" className="text-gray-500 hover:text-blue-500 cursor-pointer">
                                     {data.photo ? data.photo.name : "Upload Event Photo"}
@@ -147,6 +176,7 @@ export default function EditEvent({ event }) {
                             </div>
                             {errors.photo && <div className="mt-1 text-red-500 text-sm">{errors.photo}</div>}
                         </div>
+
                         <button
                             type="submit"
                             className="bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded-md w-full text-white transition duration-300"

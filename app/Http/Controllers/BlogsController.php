@@ -58,7 +58,6 @@ class BlogsController extends Controller
         ]);
 
         return redirect()->route('blogs.index')->with(['success' => 'Blog post created successfully.']);
-
     }
 
     /**
@@ -84,34 +83,60 @@ class BlogsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Blogs $blog)
+    public function update(Request $request, $id)
     {
-        // Validate incoming request data
+        // Validate incoming request (optional fields for image)
         $request->validate([
-            'title' => 'required|string|max:255',
-            'short_description' => 'required|string|max:255',
-            'long_description' => 'required|string',
-            'date' => 'required|date',
-            'photo' => 'required',
+            'title' => 'nullable|string|max:255',
+            'short_description' => 'nullable|string|max:255',
+            'long_description' => 'nullable|string',
+            'date' => 'nullable|date',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',  // Validate image if provided
         ]);
 
-        // Update the blog data
-        $blog->update([
-            'title' => $request->title,
-            'short_description' => $request->short_description,
-            'long_description' => $request->long_description,
-            'date' => $request->date,
-        ]);
+        // Find the blog by ID
+        $blog = Blogs::findOrFail($id);
 
-        // Handle photo upload if provided
-        if ($request->hasFile('photo')) {
-            $path = $request->file('photo')->store('blogs', 'public');
-            $blog->update(['photo' => $path]); // Save the photo path
+        // Prepare an array to hold the fields that will be updated
+        $updateData = [];
+
+        // Update only the fields that are provided in the request
+        if ($request->has('title')) {
+            $updateData['title'] = $request->title;
         }
 
-        // Redirect back to the blog listing with a success message
-        return redirect()->route('blogs.index')->with(['success' => 'blog updated successfully.']);
+        if ($request->has('short_description')) {
+            $updateData['short_description'] = $request->short_description;
+        }
+
+        if ($request->has('long_description')) {
+            $updateData['long_description'] = $request->long_description;
+        }
+
+        if ($request->has('date')) {
+            $updateData['date'] = $request->date;
+        }
+
+        // Handle image upload if a new image is provided
+        if ($request->hasFile('image')) {
+            // If there's an existing image, delete it from storage
+            if ($blog->photo && file_exists(storage_path('app/public/' . $blog->photo))) {
+                // Delete old image file from storage
+                unlink(storage_path('app/public/' . $blog->photo));
+            }
+
+            // Store the new image and update the photo field
+            $imagePath = $request->file('image')->store('blogs', 'public');
+            $updateData['photo'] = $imagePath;
+        }
+
+        // Update the blog with the provided fields (only those in $updateData)
+        $blog->update($updateData);
+
+        // Redirect back with a success message
+        return redirect()->route('blogs.index')->with('success', 'Blog updated successfully!');
     }
+
 
     /**
      * Remove the specified resource from storage.
@@ -120,6 +145,5 @@ class BlogsController extends Controller
     {
         $blog->delete();
         return redirect()->route('blogs.index')->with(['success' => 'Blog post deleted successfully.']);
-
     }
 }
