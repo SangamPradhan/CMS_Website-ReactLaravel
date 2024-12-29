@@ -4,7 +4,6 @@ import { useState } from "react";
 import Footer from "../components/Footer/Footer.jsx";
 
 const Projects = ({ projects }) => {
-
     const [selectedProject, setSelectedProject] = useState(null);
 
     const today = new Date().toLocaleDateString();
@@ -16,6 +15,13 @@ const Projects = ({ projects }) => {
     const handleClosePopup = () => {
         setSelectedProject(null);  // Close the popup by clearing the selected project
     };
+
+    // Sort projects by date in descending order
+    const sortedProjects = projects.sort((a, b) => {
+        const dateA = new Date(a.date);
+        const dateB = new Date(b.date);
+        return dateB - dateA; // Sort descending by date
+    });
 
     return (
         <>
@@ -31,7 +37,7 @@ const Projects = ({ projects }) => {
                     </p>
 
                     <ul className="gap-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-                        {projects.map((project) => (
+                        {sortedProjects.map((project) => (
                             <li key={project.id} className="group">
                                 <div className="bg-gray-100 shadow-md rounded-lg overflow-hidden">
                                     <figure className="relative">

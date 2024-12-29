@@ -1,32 +1,13 @@
 import Layout from "@/Layouts/layout";
 import { useState } from "react";
-import insta1 from '../../assets/website/insta-post-1.png';
-import insta2 from '../../assets/website/insta-post-2.png';
-import insta3 from '../../assets/website/insta-post-3.png';
-import insta4 from '../../assets/website/insta-post-4.png';
-import insta5 from '../../assets/website/insta-post-5.png';
-import insta6 from '../../assets/website/insta-post-6.png';
-import insta7 from '../../assets/website/insta-post-7.png';
-import insta8 from '../../assets/website/insta-post-8.png';
-import insta9 from '../../assets/website/insta-post-9.png';
 import Footer from '../components/Footer/Footer.jsx'; // Assuming the Footer component is in this directory
 
-const Gallery = () => {
+const Gallery = ({ photos, videos }) => {
     const [selectedImage, setSelectedImage] = useState(null);
-    const instaPosts = [
-        insta1, insta2, insta3, insta4, insta5, insta6, insta7, insta8, insta9,
-    ];
-
-    // Videos Data
-    const videoPosts = [
-        { title: "Video 1", url: "https://www.youtube.com/embed/KNE8o4gK_y0?si=_yt5eI6YQPEgCO2c" },
-        { title: "Video 2", url: "https://www.youtube.com/embed/3JZ_D3ELwOQ" },
-        { title: "Video 3", url: "https://www.youtube.com/embed/tgbNymZ7vqY" },
-    ];
 
     return (
         <>
-        <Layout/>
+            <Layout />
             {/* Dark Themed Section */}
             <div className="bg-white-100 p-6 text-center">
                 {/* Logo */}
@@ -35,26 +16,32 @@ const Gallery = () => {
                 </a>
 
                 {/* Description */}
-                <p className="mb-6 font-medium text-lg text-white">Following Event Pictures</p>
+                <p className="mb-6 font-medium text-black text-lg">Following Event Pictures</p>
 
-                {/* Instagram Post Grid */}
+                {/* Instagram Post Grid (Photos) */}
                 <ul className="gap-10 grid grid-cols-4" style={{ gap: "12px" }}>
-                    {instaPosts.map((post, index) => (
-                        <li key={index}>
-                            <button
-                                onClick={() => setSelectedImage(post)}
-                                className="block focus:outline-none"
-                            >
-                                <img
-                                    src={post}
-                                    alt={`Insta post ${index + 1}`}
-                                    className="shadow-lg rounded-md w-full h-auto"
-                                />
-                            </button>
-                        </li>
-                    ))}
+                    {Array.isArray(photos) && photos.length > 0 ? (
+                        photos.map((post, index) => (
+                            <li key={index}>
+                                <button
+                                    onClick={() => setSelectedImage(post.photo)} // Display photo on click
+                                    className="block focus:outline-none"
+                                >
+                                    <img
+                                        src={`/storage/${post.photo}`}
+                                        alt={`Insta post ${index + 1}`}
+                                        className="shadow-lg rounded-md w-full h-auto"
+                                    />
+                                </button>
+                                <p className="flex justify-center items-center p-4 font-medium text-black text-center">{post.title}</p>
+                            </li>
+                        ))
+                    ) : (
+                        <p>No photos available</p>
+                    )}
                 </ul>
 
+                {/* Modal for Enlarged Image */}
                 {/* Modal for Enlarged Image */}
                 {selectedImage && (
                     <div
@@ -63,9 +50,9 @@ const Gallery = () => {
                     >
                         <div className="relative">
                             <img
-                                src={selectedImage}
+                                src={`storage/${selectedImage}`}
                                 alt="Selected post"
-                                className="rounded-lg max-w-full max-h-screen"
+                                className="rounded-lg w-3/4 max-w-full h-auto max-h-screen" // Increased size (3/4 of screen width)
                             />
                             <button
                                 onClick={() => setSelectedImage(null)}
@@ -77,23 +64,29 @@ const Gallery = () => {
                     </div>
                 )}
 
+
                 {/* Videos Section */}
                 <div className="mt-10">
-                    <h2 className="mb-6 font-medium text-white text-xl">Featured Videos</h2>
-                    <ul className="gap-6 grid grid-cols-3">
-                        {videoPosts.map((video, index) => (
-                            <li key={index} className="shadow-lg rounded-md overflow-hidden">
-                                <iframe
-                                    src={video.url}
-                                    title={video.title}
-                                    frameBorder="0"
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                    allowFullScreen
-                                    className="w-full h-48"
-                                ></iframe>
-                            </li>
-                        ))}
-                    </ul>
+                    <h2 className="mb-6 font-medium text-blackt-xl">Featured Videos</h2>
+                    {Array.isArray(videos) && videos.length > 0 ? (
+                        <ul className="gap-6 grid grid-cols-3">
+                            {videos.map((video, index) => (
+                                <li key={index} className="shadow-lg rounded-md overflow-hidden">
+                                    <iframe
+                                        src={video.video} // Video URL
+                                        title={video.title || `Video ${index + 1}`} // Title fallback if not provided
+                                        frameBorder="0"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                        allowFullScreen
+                                        className="w-full h-48"
+                                    ></iframe>
+                                    <p className="p-4 font-medium text-black text-lg">{video.title}</p>
+                                </li>
+                            ))}
+                        </ul>
+                    ) : (
+                        <p>No videos available</p>
+                    )}
                 </div>
             </div>
             <br />

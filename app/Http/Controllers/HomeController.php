@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Blogs;
 use App\Models\Contacts;
 use App\Models\Events;
+use App\Models\Galleries;
 use App\Models\Projects;
 use App\Models\ProjectsReview;
 use App\Models\Testimonials;
@@ -67,10 +68,25 @@ class HomeController extends Controller
         return Inertia::render('AboutUs');
     }
 
+    // Controller code for fetching gallery data
     public function homegallery()
     {
-        return Inertia::render('Gallery');
+        // Fetch all gallery data (both photos and videos) from the database
+        $galleryItems = Galleries::all();
+
+        // Separate photos and videos
+        // $photos = $galleryItems->whereNotNull('photo');
+        // $videos = $galleryItems->whereNotNull('video');
+        $photos = $galleryItems->whereNotNull('photo')->values(); // Ensure it's an array
+        $videos = $galleryItems->whereNotNull('video')->values();
+
+        // Pass the data to the frontend
+        return Inertia::render('Gallery', [
+            'photos' => $photos,
+            'videos' => $videos,
+        ]);
     }
+
 
     public function homeevent()
     {
