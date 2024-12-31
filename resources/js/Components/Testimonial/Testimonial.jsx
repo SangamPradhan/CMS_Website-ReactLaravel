@@ -19,8 +19,8 @@ const Testimonial = ({ testimonials }) => {
         pauseOnFocus: true, // Pauses when the carousel is focused
         swipeToSlide: true, // Allows users to swipe between slides
     };
-    
-    
+
+
 
     const renderStars = (rating) => {
         return Array.from({ length: 5 }, (_, index) => (
@@ -35,8 +35,12 @@ const Testimonial = ({ testimonials }) => {
     return (
         <div className="py-10">
             <div className="container">
+
                 {/* Testimonial section */}
                 <div data-aos="fade-up" className="gap-6 grid grid-cols-1 mx-auto max-w-screen-xl">
+                    <h1 className="border-primary/50 my-8 mr-2 py-1 pl-6 border-l-8 font-semibold text-3xl">
+                        Our Client Testimonials
+                    </h1>
                     <Slider {...settings}>
                         {testimonials.map((testimonial, index) => {
                             return (
@@ -45,8 +49,8 @@ const Testimonial = ({ testimonials }) => {
                                     <div className="relative flex sm:flex-row flex-col gap-5 md:gap-14 dark:bg-gray-800 mx-4 p-4 rounded-xl">
                                         <div className="w-[200px] h-[300px] overflow-hidden">
                                             <img
-                                            
-                                            src={`/storage/${testimonial.photo}`}
+
+                                                src={`/storage/${testimonial.photo}`}
                                                 alt={testimonial.title}
                                                 className="w-full h-full object-cover" // Ensures image maintains aspect ratio and fits the container
                                             />

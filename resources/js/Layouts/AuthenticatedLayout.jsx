@@ -5,6 +5,10 @@ import { Button } from '@headlessui/react';
 import { Link, usePage } from '@inertiajs/react';
 import { useEffect, useState } from 'react';
 
+// Import FontAwesome icons
+import { faBlog, faCalendarAlt, faCommentDots, faImages, faProjectDiagram, faQuestionCircle, faTachometerAlt } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 export default function AuthenticatedLayout({ header, children }) {
     const user = usePage().props.auth.user;
     const currentUrl = usePage().url; // Get the current URL from Inertia.js
@@ -12,23 +16,25 @@ export default function AuthenticatedLayout({ header, children }) {
     const [open, setOpen] = useState(false);
 
     useEffect(() => {
-        if (currentUrl.includes('/projects')) {
-            setActiveGroup('projects') ||
-            currentUrl.includes('/projects/edit');
+        if (
+            currentUrl.includes('/projects') ||
+            currentUrl.includes('projects/create') ||
+            currentUrl.includes('projects/edit') ||
+            currentUrl.includes('projects/show')
+        ) {
+            setActiveGroup('projects');
         } else if (currentUrl.includes('/event')) {
             setActiveGroup('event');
         } else if (currentUrl.includes('/blogs')) {
             setActiveGroup('blogs');
         } else if (currentUrl.includes('/testimonials')) {
-            setActiveGroup('testimonials'); // Keep Employee Management expanded
+            setActiveGroup('testimonials');
         } else if (currentUrl.includes('/gallery')) {
-            setActiveGroup('gallery'); // Keep Employee Management expanded
+            setActiveGroup('gallery');
+        } else if (currentUrl.includes('/contactus')) {
+            setActiveGroup('contactus');
         }
     }, [currentUrl]);
-
-    const toggleGroup = group => {
-        setActiveGroup(prevGroup => (prevGroup === group ? null : group));
-    };
 
     const handleLogoutOpen = () => {
         setOpen(true);
@@ -48,13 +54,13 @@ export default function AuthenticatedLayout({ header, children }) {
 
                 {/* Navigation */}
                 <nav className="space-y-1">
-                    <NavItem label="Dashboard" href="/dashboard" isActive={currentUrl === '/dashboard'} />
-                    <NavItem label="Projects" href={route('projects.index')} isActive={route().current('projects.index')} />
-                    <NavItem label="Events" href={route('event.index')} isActive={currentUrl === '/event'} />
-                    <NavItem label="Blogs" href={route('blogs.index')} isActive={route().current('blogs.index')} />
-                    <NavItem label="Testimonials" href={route('testimonials.index')} isActive={route().current('testimonials.index')} />
-                    <NavItem label="Gallery" href={route('gallery.index')} isActive={route().current('gallery.index')} />
-                    <NavItem label="User Inquiries" href={route('contactus.index')} isActive={route().current('contactus.index')} />
+                    <NavItem label="Dashboard" href="/dashboard" isActive={currentUrl === '/dashboard'} icon={<FontAwesomeIcon icon={faTachometerAlt} className="mr-2" />} />
+                    <NavItem label="Projects" href={route('projects.index')} isActive={route().current('projects.index')} icon={<FontAwesomeIcon icon={faProjectDiagram} className="mr-2" />} />
+                    <NavItem label="Events" href={route('event.index')} isActive={currentUrl === '/event'} icon={<FontAwesomeIcon icon={faCalendarAlt} className="mr-2" />} />
+                    <NavItem label="Blogs" href={route('blogs.index')} isActive={route().current('blogs.index')} icon={<FontAwesomeIcon icon={faBlog} className="mr-2" />} />
+                    <NavItem label="Testimonials" href={route('testimonials.index')} isActive={route().current('testimonials.index')} icon={<FontAwesomeIcon icon={faCommentDots} className="mr-2" />} />
+                    <NavItem label="Gallery" href={route('gallery.index')} isActive={route().current('gallery.index')} icon={<FontAwesomeIcon icon={faImages} className="mr-2" />} />
+                    <NavItem label="User Inquiries" href={route('contactus.index')} isActive={route().current('contactus.index')} icon={<FontAwesomeIcon icon={faQuestionCircle} className="mr-2" />} />
                 </nav>
             </div>
 
