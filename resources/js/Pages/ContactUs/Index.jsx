@@ -73,7 +73,13 @@ export default function Index({ contacts, flash }) {
                                     className="px-2 py-1 search-input"
                                     placeholder="Search by Title"
                                 />
+                                <Link href={route('contactus.create')} className="btn btn-primary">
+                                    <button className="bg-blue-600 hover:bg-blue-700 px-6 py-2 rounded-md text-white focus:outline-none">
+                                        Send Mail to User
+                                    </button>
+                                </Link>
                             </div>
+
 
                             <div className="overflow-x-auto">
                                 <table className="min-w-full">
@@ -95,7 +101,7 @@ export default function Index({ contacts, flash }) {
                                                 <td className="px-4 py-2 border">{contact.email}</td>
                                                 <td className="px-4 py-2 border">{contact.subject}</td>
                                                 <td className="px-4 py-2 border">{contact.message}</td>
-                                                
+
                                                 <td className="px-4 py-2 border">
                                                     <div className="flex space-x-2 px-4 py-2">
 

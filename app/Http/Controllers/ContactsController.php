@@ -31,7 +31,7 @@ class ContactsController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('ContactUs/Create');
     }
 
     /**

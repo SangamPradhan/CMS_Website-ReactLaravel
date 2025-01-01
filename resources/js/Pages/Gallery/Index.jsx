@@ -1,109 +1,147 @@
+import ConfirmationDialog from '@/Components/ConfirmationDialog';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head, Link, usePage } from '@inertiajs/react';
+import { faEye, faPencilAlt, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Head, Link, useForm } from '@inertiajs/react';
+import { useEffect, useState } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-export default function Index({ galleries }) {
-    const { flash } = usePage().props;
+export default function Index({ galleries, flash }) {
+    // Search state
+    const [searchTerm, setSearchTerm] = useState('');
+    const [isDialogOpen, setIsDialogOpen] = useState(false);
+    const [deleteUrl, setDeleteUrl] = useState('');
+    const { delete: destroy } = useForm();
+
+    const handleDeleteClick = (url) => {
+        setDeleteUrl(url);
+        setIsDialogOpen(true);
+    };
+
+    const handleConfirmDelete = () => {
+        setIsDialogOpen(false);
+        destroy(deleteUrl);
+    };
+
+    useEffect(() => {
+        if (flash.success) {
+            toast.success(flash.success);
+        }
+        if (flash.error) {
+            toast.error(flash.error);
+        }
+    }, [flash]);
+
+    // Handle search input change
+    const handleSearchChange = (event) => {
+        setSearchTerm(event.target.value);
+    };
+
+    // Filter galleries based on the search term
+    const filteredGalleries = galleries.filter((gallery) =>
+        gallery.title.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
+    const truncateText = (text, maxLength) => {
+        return text.length > maxLength ? text.substring(0, maxLength) + '...' : text;
+    };
 
     return (
         <AuthenticatedLayout
-            header={
-                <div className="flex justify-between items-center">
-                    <h2 className="font-semibold text-gray-800 text-xl leading-tight">Gallery</h2>
-                    <Link
-                        href={route('gallery.create')}
-                        className="bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded-md text-white focus:outline-none"
-                    >
-                        Add New
-                    </Link>
-                </div>
-            }
+            header={<h2 className="font-semibold text-gray-800 text-xl leading-tight">Gallery</h2>}
         >
             <Head title="Gallery" />
-
-            <div className="py-5">
+            <div className="py-12">
                 <div className="mx-auto sm:px-6 lg:px-8 max-w-7xl">
-                    <div className="bg-white shadow-md sm:rounded-lg overflow-hidden">
-                        <div className="p-6">
-                            {/* Flash Message */}
-                            {flash.message && (
-                                <div className="bg-green-100 mb-4 p-4 rounded-md text-green-700">
-                                    {flash.message}
-                                </div>
-                            )}
+                    <div className="bg-white shadow-sm sm:rounded-lg overflow-hidden">
+                        <div className="p-6 text-gray-900">
+                            <h1 className="font-bold text-2xl">Gallery Posts</h1>
+                            <div className="flex justify-end space-x-4 mb-4">
+                                <input
+                                    type="text"
+                                    value={searchTerm}
+                                    onChange={handleSearchChange}
+                                    className="px-2 py-1 border rounded search-input"
+                                    placeholder="Search by Title"
+                                />
+                                <Link href={route('gallery.create')}>
+                                    <button className="bg-blue-600 hover:bg-blue-700 px-6 py-2 rounded-md text-white focus:outline-none">
+                                        Add Gallery
+                                    </button>
+                                </Link>
+                            </div>
 
-                            {/* Gallery Table */}
                             <div className="overflow-x-auto">
-                                <table className="border-collapse border-gray-200 border min-w-full table-auto">
+                                <table className="mt-4 min-w-full">
                                     <thead>
-                                        <tr className="bg-gray-100 text-left">
-                                            <th className="px-6 py-3 border-b">#</th>
-                                            <th className="px-6 py-3 border-b">Image</th>
-                                            <th className="px-6 py-3 border-b">Title</th>
-                                            <th className="px-6 py-3 border-b">Actions</th>
+                                        <tr>
+                                            <th className="px-4 py-2">ID</th>
+                                            <th className="px-4 py-2">Title</th>
+                                            <th className="px-4 py-2">Date</th>
+                                            <th className="px-4 py-2">Photo</th>
+                                            <th className="px-4 py-2">Video</th>
+                                            <th className="px-4 py-2">Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {galleries.map((gallery, index) => (
-                                            <tr key={gallery.id} className="hover:bg-gray-50">
-                                                {/* Serial Number */}
-                                                <td className="px-6 py-4 border-b">{index + 1}</td>
-
-                                                {/* Image Preview */}
-                                                <td className="px-6 py-4 border-b">
-                                                    <img
-                                                        src={`/storage/${gallery.photo}`}
-                                                        alt={gallery.title}
-                                                        className="rounded w-16 h-16 object-cover"
-                                                    />
+                                        {filteredGalleries.map((gallery) => (
+                                            <tr key={gallery.id}>
+                                                <td className="px-4 py-2 border">{gallery.id}</td>
+                                                <td className="px-4 py-2 border">{gallery.title}</td>
+                                                <td className="px-4 py-2 border">{gallery.date}</td>
+                                                <td className="px-4 py-2 border">
+                                                    {gallery.photo ? (
+                                                        <img
+                                                            src={`/storage/${gallery.photo}`}
+                                                            alt={gallery.title}
+                                                            className="w-12 h-12 object-cover"
+                                                        />
+                                                    ) : (
+                                                        'No Photo'
+                                                    )}
                                                 </td>
-
-                                                {/* Title */}
-                                                <td className="px-6 py-4 border-b">{gallery.title}</td>
-
-                                                {/* Actions */}
-                                                <td className="space-x-2 px-6 py-4 border-b">
-                                                    <Link
-                                                        href={route('gallery.show', gallery.id)}
-                                                        className="text-blue-500 hover:underline"
-                                                    >
-                                                        View
-                                                    </Link>
-                                                    <Link
-                                                        href={route('gallery.edit', gallery.id)}
-                                                        className="text-yellow-500 hover:underline"
-                                                    >
-                                                        Edit
-                                                    </Link>
-                                                    <Link
-                                                        as="button"
-                                                        method="delete"
-                                                        href={route('gallery.destroy', gallery.id)}
-                                                        className="text-red-500 hover:underline"
-                                                        onClick={(e) => {
-                                                            if (!confirm('Are you sure you want to delete this item?')) {
-                                                                e.preventDefault();
-                                                            }
-                                                        }}
-                                                    >
-                                                        Delete
-                                                    </Link>
+                                                <td className="px-4 py-2 border">{truncateText(gallery.video || 'No Video', 20)}</td>
+                                                <td className="px-4 py-2 border">
+                                                    <div className="flex space-x-2">
+                                                        <Link
+                                                            href={route('gallery.edit', gallery.id)}
+                                                            className="bg-blue-100 hover:bg-blue-200 px-4 py-2 rounded text-blue-600"
+                                                        >
+                                                            <FontAwesomeIcon icon={faPencilAlt} className="mr-2" />
+                                                            Edit
+                                                        </Link>
+                                                        <Link
+                                                            href={route('gallery.show', gallery.id)}
+                                                            className="bg-green-100 hover:bg-green-200 px-4 py-2 rounded text-green-600"
+                                                        >
+                                                            <FontAwesomeIcon icon={faEye} className="mr-2" />
+                                                            Preview
+                                                        </Link>
+                                                        <button
+                                                            onClick={() => handleDeleteClick(route('gallery.destroy', gallery.id))}
+                                                            className="bg-red-100 hover:bg-red-200 px-4 py-2 rounded text-red-600"
+                                                        >
+                                                            <FontAwesomeIcon icon={faTrashAlt} className="mr-2" />
+                                                            Delete
+                                                        </button>
+                                                    </div>
                                                 </td>
                                             </tr>
                                         ))}
                                     </tbody>
                                 </table>
                             </div>
-
-                            {/* No Data Message */}
-                            {galleries.length === 0 && (
-                                <div className="mt-4 text-center text-gray-500">
-                                    No gallery items found. Start by adding one!
-                                </div>
-                            )}
                         </div>
                     </div>
                 </div>
             </div>
+            <ToastContainer />
+            <ConfirmationDialog
+                isOpen={isDialogOpen}
+                onClose={() => setIsDialogOpen(false)}
+                onConfirm={handleConfirmDelete}
+            />
         </AuthenticatedLayout>
     );
 }
