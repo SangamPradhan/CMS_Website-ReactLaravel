@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Contacts;
 use App\Http\Requests\StoreContactsRequest;
 use App\Http\Requests\UpdateContactsRequest;
+use App\Mail\AI_Solutions;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -33,6 +35,21 @@ class ContactsController extends Controller
     {
         return Inertia::render('ContactUs/Create');
     }
+
+    public function sendmail(Request $request)
+    {
+        // Retrieve email, subject, and message from the request
+        $email = $request->email;
+        $subject = $request->subject;
+        $message = $request->message;  // Explicitly typecast message to string
+
+        // Send the email
+        Mail::to($email)->send(new AI_Solutions($subject, $message));
+
+        // Return a success response
+        return redirect()->back()->with(['message' => 'Email sent successfully']);
+    }
+
 
     /**
      * Store a newly created resource in storage.

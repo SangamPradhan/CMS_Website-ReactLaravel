@@ -31,9 +31,13 @@ export default function AuthenticatedLayout({ header, children }) {
             setActiveGroup('testimonials');
         } else if (currentUrl.includes('/gallery')) {
             setActiveGroup('gallery');
-        } else if (currentUrl.includes('/contactus')) {
+        } else if (
+            currentUrl.includes('/contactus') ||
+            currentUrl.includes('/contactus/create') // Added condition here
+        ) {
             setActiveGroup('contactus');
         }
+
     }, [currentUrl]);
 
     const handleLogoutOpen = () => {
@@ -55,12 +59,23 @@ export default function AuthenticatedLayout({ header, children }) {
                 {/* Navigation */}
                 <nav className="space-y-1">
                     <NavItem label="Dashboard" href="/dashboard" isActive={currentUrl === '/dashboard'} icon={<FontAwesomeIcon icon={faTachometerAlt} className="mr-2" />} />
-                    <NavItem label="Projects" href={route('projects.index')} isActive={route().current('projects.index')} icon={<FontAwesomeIcon icon={faProjectDiagram} className="mr-2" />} />
-                    <NavItem label="Events" href={route('event.index')} isActive={currentUrl === '/event'} icon={<FontAwesomeIcon icon={faCalendarAlt} className="mr-2" />} />
-                    <NavItem label="Blogs" href={route('blogs.index')} isActive={route().current('blogs.index')} icon={<FontAwesomeIcon icon={faBlog} className="mr-2" />} />
-                    <NavItem label="Testimonials" href={route('testimonials.index')} isActive={route().current('testimonials.index')} icon={<FontAwesomeIcon icon={faCommentDots} className="mr-2" />} />
-                    <NavItem label="Gallery" href={route('gallery.index')} isActive={route().current('gallery.index')} icon={<FontAwesomeIcon icon={faImages} className="mr-2" />} />
-                    <NavItem label="User Inquiries" href={route('contactus.index')} isActive={route().current('contactus.index')} icon={<FontAwesomeIcon icon={faQuestionCircle} className="mr-2" />} />
+                    <NavItem
+                        label="Projects"
+                        href={route('projects.index')}
+                        isActive={currentUrl === '/projects' || currentUrl.startsWith('/projects')}
+                        icon={<FontAwesomeIcon icon={faProjectDiagram} className="mr-2" />}
+                    />
+                    <NavItem label="Events" href={route('event.index')} isActive={currentUrl === '/event' || currentUrl.startsWith('/event')} icon={<FontAwesomeIcon icon={faCalendarAlt} className="mr-2" />} />
+                    <NavItem label="Blogs" href={route('blogs.index')} isActive={route().current('blogs.index') || currentUrl.startsWith('/blogs')} icon={<FontAwesomeIcon icon={faBlog} className="mr-2" />} />
+                    <NavItem label="Testimonials" href={route('testimonials.index')} isActive={route().current('testimonials.index') || currentUrl.startsWith('/testimonials')} icon={<FontAwesomeIcon icon={faCommentDots} className="mr-2" />} />
+                    <NavItem label="Gallery" href={route('gallery.index')} isActive={route().current('gallery.index') || currentUrl.startsWith('/gallery')} icon={<FontAwesomeIcon icon={faImages} className="mr-2" />} />
+                    <NavItem
+                        label="User Inquiries"
+                        href={route('contactus.index')}
+                        isActive={currentUrl === '/contactus' || currentUrl.startsWith('/contactus')}
+                        icon={<FontAwesomeIcon icon={faQuestionCircle} className="mr-2" />}
+                    />
+
                 </nav>
             </div>
 

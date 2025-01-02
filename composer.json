@@ -11,6 +11,10 @@
         "laravel/framework": "^11.31",
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.9",
+        "resend/resend-laravel": "^0.15.0",
+        "symfony/http-client": "^7.2",
+        "symfony/mailgun-mailer": "^7.1",
+        "symfony/postmark-mailer": "^7.1",
         "tightenco/ziggy": "^2.0"
     },
     "require-dev": {

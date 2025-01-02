@@ -53,7 +53,7 @@ class TestimonialsController extends Controller
 
         Testimonials::create($validatedData);
         // Return a response, such as redirecting the user back to the projects listing page
-        return redirect()->route('testimonials.index')->with('success', 'Testimonial created successfully.');
+        return redirect()->route('testimonials.index')->with(['success' => 'Testimonial created successfully.']);
     }
 
     /**
@@ -90,6 +90,6 @@ class TestimonialsController extends Controller
     public function destroy(Testimonials $testimonial)
     {
         $testimonial->delete();
-        return redirect()->route('testimonials.index')->with('success', 'Testimonial deleted successfully.');
+        return redirect()->route('testimonials.index')->with(['success' => 'Testimonial deleted successfully.']);
     }
 }

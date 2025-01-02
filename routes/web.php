@@ -6,6 +6,7 @@ use App\Http\Controllers\ContactsController;
 use App\Http\Controllers\EventsController;
 use App\Http\Controllers\GalleriesController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\MailController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\TestimonialsController;
@@ -63,7 +64,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('testimonials', TestimonialsController::class);
     Route::resource('gallery', GalleriesController::class);
     Route::resource('contactus', ContactsController::class);
-
+    Route::post('/contactus/sendmail', [ContactsController::class, 'sendmail'])->name('contactus.sendmail');
 });
 
 

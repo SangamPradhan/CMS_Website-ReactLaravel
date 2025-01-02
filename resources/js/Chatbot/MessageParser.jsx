@@ -131,7 +131,7 @@ const MessageParser = ({ children, actions }) => {
         // Support Services
         else if (message.includes('support') || message.includes('help')) {
             actions.handleFAQResponse(
-                'Our support team is here to assist you. Contact us through our support portal for any inquiries or issues.'
+                'Our support team is here to assist you. Contact us through our Contact Us page for any inquiries or issues.'
             );
         }
 

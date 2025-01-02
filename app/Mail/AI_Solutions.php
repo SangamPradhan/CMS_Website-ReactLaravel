@@ -3,7 +3,6 @@
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
@@ -12,18 +11,18 @@ use Illuminate\Queue\SerializesModels;
 class AI_Solutions extends Mailable
 {
     use Queueable, SerializesModels;
+
     public $message;
     public $subject;
 
     /**
      * Create a new message instance.
      */
-    public function __construct( $subject, $message)
+    public function __construct($subject, $message)
     {
-        $this->message = $message;
         $this->subject = $subject;
+        $this->message = (string) $message; // Explicitly cast message to string
     }
-
 
     /**
      * Get the message envelope.
@@ -41,7 +40,11 @@ class AI_Solutions extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'view.name',
+            view: 'emails.contact', // Replace with your view name
+            with: [
+                'subject' => $this->subject,
+                'message' => $this->message, // Ensure it's a string
+            ],
         );
     }
 
