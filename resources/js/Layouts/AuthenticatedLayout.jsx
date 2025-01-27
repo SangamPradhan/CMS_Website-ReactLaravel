@@ -4,6 +4,7 @@ import { LogoutDialog } from '@/Components/LogoutDialog';
 import { Button } from '@headlessui/react';
 import { Link, usePage } from '@inertiajs/react';
 import { useEffect, useState } from 'react';
+import * as FaIcons from 'react-icons/fa';
 
 // Import FontAwesome icons
 import { faBlog, faCalendarAlt, faCommentDots, faImages, faProjectDiagram, faQuestionCircle, faTachometerAlt } from '@fortawesome/free-solid-svg-icons';
@@ -14,6 +15,25 @@ export default function AuthenticatedLayout({ header, children }) {
     const currentUrl = usePage().url; // Get the current URL from Inertia.js
     const [activeGroup, setActiveGroup] = useState(null);
     const [open, setOpen] = useState(false);
+    const [sidebarOpen, setSidebarOpen] = useState(window.innerWidth >= 1024);
+
+    // Adjust sidebar state based on window resize
+    useEffect(() => {
+        const handleResize = () => {
+            if (window.innerWidth >= 1024) {
+                setSidebarOpen(true); // Open sidebar for desktop view
+            } else {
+                setSidebarOpen(false); // Collapse sidebar for mobile view
+            }
+        };
+
+        window.addEventListener('resize', handleResize);
+
+        // Cleanup the event listener on unmount
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
 
     useEffect(() => {
         if (
@@ -47,36 +67,47 @@ export default function AuthenticatedLayout({ header, children }) {
     return (
         <div className="flex">
             {/* Sidebar */}
-            <div id="sidebar" className="top-0 z-0 sticky bg-[#E6F4FF] p-4 w-64 min-h-screen overflow-y-auto">
-                <div className="mb-6">
-                    <div className="flex items-center shrink-0">
+            <div
+                className={`bg-blue-50 p-4 min-h-screen transition-all duration-500 ${sidebarOpen ? 'w-64' : 'w-16'
+                    }`}
+            >
+                <div className="flex justify-between items-center mb-8">
+                    {sidebarOpen && (
                         <Link href="/dashboard">
                             <ApplicationLogo className="block w-auto h-9 text-gray-800 fill-current" />
                         </Link>
-                    </div>
+                    )}
+                    <button
+                        onClick={() => setSidebarOpen(!sidebarOpen)}
+                        className="lg:hidden"
+                    >
+                        <FaIcons.FaBars />
+                    </button>
                 </div>
 
                 {/* Navigation */}
-                <nav className="space-y-1">
-                    <NavItem label="Dashboard" href="/dashboard" isActive={currentUrl === '/dashboard'} icon={<FontAwesomeIcon icon={faTachometerAlt} className="mr-2" />} />
-                    <NavItem
-                        label="Projects"
-                        href={route('projects.index')}
-                        isActive={currentUrl === '/projects' || currentUrl.startsWith('/projects')}
-                        icon={<FontAwesomeIcon icon={faProjectDiagram} className="mr-2" />}
-                    />
-                    <NavItem label="Events" href={route('event.index')} isActive={currentUrl === '/event' || currentUrl.startsWith('/event')} icon={<FontAwesomeIcon icon={faCalendarAlt} className="mr-2" />} />
-                    <NavItem label="Blogs" href={route('blogs.index')} isActive={route().current('blogs.index') || currentUrl.startsWith('/blogs')} icon={<FontAwesomeIcon icon={faBlog} className="mr-2" />} />
-                    <NavItem label="Testimonials" href={route('testimonials.index')} isActive={route().current('testimonials.index') || currentUrl.startsWith('/testimonials')} icon={<FontAwesomeIcon icon={faCommentDots} className="mr-2" />} />
-                    <NavItem label="Gallery" href={route('gallery.index')} isActive={route().current('gallery.index') || currentUrl.startsWith('/gallery')} icon={<FontAwesomeIcon icon={faImages} className="mr-2" />} />
-                    <NavItem
-                        label="User Inquiries"
-                        href={route('contactus.index')}
-                        isActive={currentUrl === '/contactus' || currentUrl.startsWith('/contactus')}
-                        icon={<FontAwesomeIcon icon={faQuestionCircle} className="mr-2" />}
-                    />
+                {sidebarOpen && (
+                    <nav className="space-y-1">
+                        <NavItem label="Dashboard" href="/dashboard" isActive={currentUrl === '/dashboard'} icon={<FontAwesomeIcon icon={faTachometerAlt} className="mr-2" />} />
+                        <NavItem
+                            label="Projects"
+                            href={route('projects.index')}
+                            isActive={currentUrl === '/projects' || currentUrl.startsWith('/projects')}
+                            icon={<FontAwesomeIcon icon={faProjectDiagram} className="mr-2" />}
+                        />
+                        <NavItem label="Events" href={route('event.index')} isActive={currentUrl === '/event' || currentUrl.startsWith('/event')} icon={<FontAwesomeIcon icon={faCalendarAlt} className="mr-2" />} />
+                        <NavItem label="Blogs" href={route('blogs.index')} isActive={route().current('blogs.index') || currentUrl.startsWith('/blogs')} icon={<FontAwesomeIcon icon={faBlog} className="mr-2" />} />
+                        <NavItem label="Testimonials" href={route('testimonials.index')} isActive={route().current('testimonials.index') || currentUrl.startsWith('/testimonials')} icon={<FontAwesomeIcon icon={faCommentDots} className="mr-2" />} />
+                        <NavItem label="Gallery" href={route('gallery.index')} isActive={route().current('gallery.index') || currentUrl.startsWith('/gallery')} icon={<FontAwesomeIcon icon={faImages} className="mr-2" />} />
+                        <NavItem
+                            label="User Inquiries"
+                            href={route('contactus.index')}
+                            isActive={currentUrl === '/contactus' || currentUrl.startsWith('/contactus')}
+                            icon={<FontAwesomeIcon icon={faQuestionCircle} className="mr-2" />}
+                        />
 
-                </nav>
+                    </nav>
+                )}
             </div>
 
             {/* Main Content */}
