@@ -11,7 +11,7 @@ import { BrowserRouter } from 'react-router-dom'; //
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
 createInertiaApp({
-    title: (title) => `${title} - AI Solutions`,
+    title: (title) => `AI Solutions - ${title} `,
     resolve: (name) =>
         resolvePageComponent(
             `./Pages/${name}.jsx`,
