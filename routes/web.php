@@ -15,6 +15,7 @@ use App\Models\Testimonials;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Http\Controllers\ChatBotController;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -57,6 +58,8 @@ Route::get('/homeevent', [HomeController::class, 'homeevent']);
 Route::get('/homeprojects', [HomeController::class, 'homeprojects']);
 Route::post('/addprojectreview', [HomeController::class, 'addprojectreview'])->name('addprojectreview');
 // Route::get('/contactus/{id}', [ContactsController::class, 'show'])->name('contactus.show');
+
+Route::post('/chat', [ChatBotController::class, 'chat']);
 
 
 // Segment management routes
